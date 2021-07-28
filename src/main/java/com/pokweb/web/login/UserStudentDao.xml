@@ -12,7 +12,7 @@
     <result column="major" jdbcType="VARCHAR" property="major" />
     <result column="Department" jdbcType="VARCHAR" property="department" />
   </resultMap>
-  <select id="selectUserStudent"  parameterType="java.lang.String"  >
+  <select id="selectUserStudent"  parameterType="java.lang.String" resultMap="BaseResultMap" >
     select * from user_student  where  id=#{id} and password=#{password}
   </select>
 
