@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pokweb.web.login.UserStudentDao">
+  <resultMap id="BaseResultMap" type="com.pokweb.web.login.UserStudent">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="identity" jdbcType="VARCHAR" property="identity" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="phone_sos" jdbcType="VARCHAR" property="phoneSos" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="major" jdbcType="VARCHAR" property="major" />
+    <result column="Department" jdbcType="VARCHAR" property="department" />
+  </resultMap>
+  <select id="selectUserStudent"  parameterType="java.lang.String"  >
+    select * from user_student  where  id=#{id} and password=#{password}
+  </select>
+
+  <insert id="insert" parameterType="com.pokweb.web.login.UserStudent">
+    insert into user_student (id, `name`, `password`, 
+      `identity`, phone, phone_sos, 
+      email, major, Department
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{identity,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{phoneSos,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{major,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pokweb.web.login.UserStudent">
+    insert into user_student
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="password != null">
+        `password`,
+      </if>
+      <if test="identity != null">
+        `identity`,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="phoneSos != null">
+        phone_sos,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="major != null">
+        major,
+      </if>
+      <if test="department != null">
+        Department,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="identity != null">
+        #{identity,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneSos != null">
+        #{phoneSos,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null">
+        #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        #{department,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>
