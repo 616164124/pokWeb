@@ -1,8 +1,8 @@
-package com.pokweb.web.login;
+package com.pokweb.web.login.dao;
 
-import com.pokweb.web.login.UserStudent;
+import com.pokweb.web.login.bo.UserStudent;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Service;
+
 
 public interface UserStudentDao {
     int insert(UserStudent record);

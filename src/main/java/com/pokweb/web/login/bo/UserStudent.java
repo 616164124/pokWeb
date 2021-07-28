@@ -1,17 +1,17 @@
-package com.pokweb.web.login;
+package com.pokweb.web.login.bo;
 
 import java.io.Serializable;
 import lombok.Data;
 
 /**
  * user_student
- * @author 
+ * @author
  */
 @Data
 public class UserStudent implements Serializable {
     /**
-     * 1000011001  10 0001 10 01  10年0001专业10班级01学号  
-教师，行政人员，后勤人员 id为8700001 为7位字符
+     * 1000011001  10 0001 10 01  10年0001专业10班级01学号
+     教师，行政人员，后勤人员 id为8700001 为7位字符
      */
     private Integer id;
 
