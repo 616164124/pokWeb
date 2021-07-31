@@ -18,7 +18,7 @@ public class LoginController {
 
     @RequestMapping(value = "login",method = RequestMethod.GET)
     public void insertUserStudentDao(Map<String,Object> params){
-       // String username = params.get("username").toString();
+        //String username = params.get("username").toString();
         //1000011001 123456
         String id = "1000011001";
         String password="123456";
