@@ -34,7 +34,7 @@ public class RegisterController {
         UserStudent userStudent = new UserStudent();
         userStudent.setName("学生王");
         int insert = userStudentDao.insert(userStudent);
-        WebResponse chengong = new WebResponse("200","chengong",insert);
+        WebResponse chengong = new WebResponse("","","");
         return chengong;
     }
 

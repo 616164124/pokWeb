@@ -4,9 +4,11 @@ package com.pokweb.common.response;
 import java.io.Serializable;
 
 public class WebResponse implements Serializable {
+
     private String resultCode = "000000";
     private String resultMsg = "";
     private Object resultObj = null;
+
 
     public WebResponse() {
     }
