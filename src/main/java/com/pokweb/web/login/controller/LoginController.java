@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +21,10 @@ import java.util.Map;
 public class LoginController {
 
     @Autowired
-    private LoginImpl loginService;
+    private LoginImpl loginImpl;
+
+    @Resource
+    private LoginService loginService;
 
     /**
      * TODO 验证码
@@ -32,6 +36,7 @@ public class LoginController {
     public  WebResponse loginIn(@RequestBody Map<String, Object> params) {
         System.out.println("====");
         System.out.println(loginService);
+
 
         return  loginService.login(params);
     }
