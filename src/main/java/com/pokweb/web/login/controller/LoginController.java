@@ -1,28 +1,38 @@
 package com.pokweb.web.login.controller;
 
-import com.pokweb.web.login.UserStudent;
-import com.pokweb.web.login.UserStudentDao;
+import com.pokweb.common.response.WebResponse;
+import com.pokweb.web.login.bo.UserStudent;
+import com.pokweb.web.login.dao.UserStudentDao;
+import com.pokweb.web.login.service.LoginService;
+import com.pokweb.web.login.service.impl.LoginImpl;
+import com.pokweb.web.register.dao.UserWorkDao;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.annotation.Resource;
+import java.util.List;
 import java.util.Map;
 
 @Controller
 @RequestMapping("/pokweb")
 public class LoginController {
 
-    @Resource
-    private UserStudentDao userStudentDao;
+    @Autowired
+    private LoginImpl loginService;
 
-    @RequestMapping(value = "login",method = RequestMethod.GET)
-    public void insertUserStudentDao(Map<String,Object> params){
-        //String username = params.get("username").toString();
-        //1000011001 123456
-        String id = "1000011001";
-        String password="123456";
-       UserStudent student = userStudentDao.selectUserStudent(id, password);
-        System.out.println("成功。。。。");
+    /**
+     * TODO 验证码
+     *
+     * @param params
+     * @return
+     */
+    @RequestMapping(value = "login", method = RequestMethod.POST)
+    public  WebResponse loginIn(@RequestBody Map<String, Object> params) {
+        System.out.println("====");
+        System.out.println(loginService);
+
+        return  loginService.login(params);
     }
 }
