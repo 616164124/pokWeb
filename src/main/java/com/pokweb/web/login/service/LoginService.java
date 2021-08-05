@@ -8,4 +8,5 @@ import java.util.Map;
 public interface LoginService {
     public WebResponse login(Map params);
 
+    WebResponse testThread(Map params);
 }

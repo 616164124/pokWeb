@@ -49,5 +49,10 @@ public class LoginController {
 
         return  loginService.login(params);
     }
+    @RequestMapping(value="threadpool",method = RequestMethod.GET)
+    public void testThread(){
+
+
+    }
 
 }

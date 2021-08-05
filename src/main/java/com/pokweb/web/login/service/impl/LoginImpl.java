@@ -13,6 +13,8 @@ import java.util.Map;
 
 @Service
 public class LoginImpl implements LoginService {
+
+
     @Resource
     private UserStudentDao userStudentDao;
 
@@ -31,6 +33,12 @@ public class LoginImpl implements LoginService {
         Map paramsMap = (Map) params;
         UserStudent userStudent1 = userStudentDao.selectUserStudent(paramsMap.get("id").toString(), paramsMap.get("password").toString());
         return new WebResponse("2002", "sjflks", "");
+    }
+
+    @Override
+    public WebResponse testThread(Map params) {
+
+        return null;
     }
 
     public static void main(String[] args) {
