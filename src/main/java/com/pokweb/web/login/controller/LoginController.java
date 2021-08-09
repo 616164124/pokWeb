@@ -1,38 +1,34 @@
 package com.pokweb.web.login.controller;
 
-import com.pokweb.common.response.WebResponse;
-import com.pokweb.web.login.bo.UserStudent;
-import com.pokweb.web.login.dao.UserStudentDao;
 import com.pokweb.web.login.service.LoginService;
-import com.pokweb.web.login.service.impl.LoginImpl;
-import com.pokweb.web.register.dao.UserWorkDao;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-import java.util.Map;
+import javax.annotation.Resource;
 
 @Controller
 @RequestMapping("/pokweb")
 public class LoginController {
 
-    @Autowired
-    private LoginImpl loginService;
+    @Resource
+    private LoginService loginService;
+    @Resource
+    private RedisTemplate redisTemplate;
 
     /**
      * TODO 验证码
      *
-     * @param params
+     * @param
      * @return
      */
-    @RequestMapping(value = "login", method = RequestMethod.POST)
-    public  WebResponse loginIn(@RequestBody Map<String, Object> params) {
-        System.out.println("====");
-        System.out.println(loginService);
+    @RequestMapping(value = "login", method = RequestMethod.GET)
+    public String loginIn(Model model) {
+        model.addAttribute("result", "后台返回index1");
 
-        return  loginService.login(params);
+        return "result";
     }
 }
