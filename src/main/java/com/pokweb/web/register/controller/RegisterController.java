@@ -25,7 +25,7 @@ public class RegisterController {
     private UserWorkDao userWorkDao;
 
     /**
-     * 学生不能注册，由管理员统一注册
+     * 学生不能注册为正式用户
      * @param params
      * @return
      */

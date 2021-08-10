@@ -3,6 +3,7 @@ package com.pokweb.web.login.service;
 import com.pokweb.common.response.WebResponse;
 import org.springframework.stereotype.Service;
 
+import java.lang.ref.WeakReference;
 import java.util.Map;
 
 public interface LoginService {
@@ -10,4 +11,5 @@ public interface LoginService {
 
     WebResponse testThread(Map params);
     WebResponse getTokens(Map params);
+    WebResponse checkToken(Map params);
 }

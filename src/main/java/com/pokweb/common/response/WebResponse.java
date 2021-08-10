@@ -9,12 +9,7 @@ public class WebResponse implements Serializable {
     private String resultMsg = "";
     private Object resultObj = null;
 
-
     public WebResponse() {
-    }
-
-    public WebResponse(String message) {
-        this.resultMsg = message;
     }
 
     public WebResponse(String code, String message,Object resultObj) {

@@ -5,14 +5,13 @@ import com.pokweb.common.response.WebResponse;
 import com.pokweb.web.login.bo.UserStudent;
 import com.pokweb.web.login.dao.UserStudentDao;
 import com.pokweb.web.login.service.LoginService;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.concurrent.CustomizableThreadFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.*;
 
 @Service
@@ -21,28 +20,24 @@ public class LoginImpl implements LoginService {
     private ExecutorService POOL = Executors.newFixedThreadPool(16, new CustomizableThreadFactory("SbxxService-pool-"));
     @Resource
     private UserStudentDao userStudentDao;
+    @Resource
+    private RedisTemplate redisTemplate;
 
 
     @Override
     public WebResponse login(Map params) {
         System.out.println("=====123");
-        if ((int) params.get("1") == 1) {
-            System.out.println("====");
-        } else {
-            System.out.println("++++++++");
+        UserStudent userStudent = userStudentDao.selectUserStudent(params.get("id").toString(), params.get("password").toString());
+        if(userStudent==null||userStudent.getId()==null){
+            return new WebResponse("400","失败","账号或密码不对");
         }
-
-
-        Map paramsMap = (Map) params;
-        UserStudent userStudent1 = userStudentDao.selectUserStudent(paramsMap.get("id").toString(), paramsMap.get("password").toString());
-        return new WebResponse("2002", "sjflks", "");
+        WebResponse tokens = getTokens(params);
+        return tokens;
     }
 
     @Override
     public WebResponse testThread(Map params) {
-
         List<Future<String>> futurelist = new ArrayList<Future<String>>();
-
         futurelist.add(POOL.submit(new T01()));
         futurelist.add(POOL.submit(new T02()));
         futurelist.add(POOL.submit(new T03()));
@@ -56,16 +51,48 @@ public class LoginImpl implements LoginService {
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
-            System.out.println(s+"\timpl====jieshu");
+            System.out.println(s + "\timpl====jieshu");
         }
 
         return null;
     }
 
+    /**
+     * @param params
+     * @return
+     */
     @Override
     public WebResponse getTokens(Map params) {
-        UserStudent userStudent = userStudentDao.selectUserStudent((String) params.get("username"),(String) params.get("password"));
         WebResponse webResponse = new WebResponse();
+        UserStudent userStudent = userStudentDao.selectUserStudent((String) params.get("id"), (String) params.get("password"));
+        if (userStudent == null) {
+            //判断登录时这个id重复多次登录报错，将该id锁1个小时
+            redisTemplate.opsForValue().append("userstudent_id"+params.get("id").toString(),"1");
+            webResponse.setResultMsg("密码或者用户不对！！！"+params.get("id")+"\t");
+            webResponse.setResultCode("400");
+        } else {
+            //新产生的token
+            HashMap<Object, Object> map = new HashMap<>();
+            String token = UUID.randomUUID().toString();
+            map.put("token", token);
+            map.put("id", params.get("id").toString());
+
+            redisTemplate.opsForValue().set("token_userStudent_id:"+params.get("id").toString(), token, 10, TimeUnit.MINUTES);
+            webResponse.setResultObj(map);
+            webResponse.setResultCode("200");
+            webResponse.setResultMsg("token生成成功");
+        }
+        return webResponse;
+    }
+
+    @Override
+    public WebResponse checkToken(Map params) {
+        String token =(String)params.get("token");
+        String userid = (String)params.get("userid");
+        String redisId =(String) redisTemplate.opsForValue().get(token);
+        if(redisId==userid){
+
+        }
         return null;
     }
 
