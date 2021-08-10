@@ -9,4 +9,5 @@ public interface LoginService {
     public WebResponse login(Map params);
 
     WebResponse testThread(Map params);
+    WebResponse getTokens(Map params);
 }

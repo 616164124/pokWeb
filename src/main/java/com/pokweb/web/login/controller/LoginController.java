@@ -1,18 +1,13 @@
 package com.pokweb.web.login.controller;
 
 import com.pokweb.common.response.WebResponse;
-import com.pokweb.web.login.bo.UserStudent;
-import com.pokweb.web.login.dao.UserStudentDao;
-import com.pokweb.web.login.service.LoginService;
 import com.pokweb.web.login.service.impl.LoginImpl;
-import com.pokweb.web.register.dao.UserWorkDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -32,7 +27,21 @@ public class LoginController {
     public  WebResponse loginIn(@RequestBody Map<String, Object> params) {
         System.out.println("====");
         System.out.println(loginService);
+        for(int i=0 ;i<10;i++){
+            loginService.testThread(params);
+        }
+        System.out.println("jieshu");
+//        loginService.login(params);
+        return  null;
+    }
 
-        return  loginService.login(params);
+    /**
+     * gettoken
+     * @param params
+     * @return
+     */
+    @RequestMapping(value="token",method = RequestMethod.GET)
+    public WebResponse getToken(@RequestBody Map<String, Object> params){
+        return loginService.getTokens(params);
     }
 }
