@@ -2,7 +2,6 @@ package com.pokweb.web.login.service.impl;
 
 
 import com.pokweb.common.response.WebResponse;
-import com.pokweb.web.login.bo.UserStudent;
 import com.pokweb.web.login.dao.UserStudentDao;
 import com.pokweb.web.login.service.LoginService;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -27,9 +26,9 @@ public class LoginImpl implements LoginService {
     @Override
     public WebResponse login(Map params) {
         System.out.println("=====123");
-        UserStudent userStudent = userStudentDao.selectUserStudent(params.get("id").toString(), params.get("password").toString());
-        if(userStudent==null||userStudent.getId()==null){
-            return new WebResponse("400","失败","账号或密码不对");
+        int userStudent = userStudentDao.selectUserStudent(params.get("id").toString(), params.get("password").toString());
+        if (userStudent == 0 || userStudent > 1) {
+            return new WebResponse("400", "失败", "账号或密码不对");
         }
         WebResponse tokens = getTokens(params);
         return tokens;
@@ -64,11 +63,11 @@ public class LoginImpl implements LoginService {
     @Override
     public WebResponse getTokens(Map params) {
         WebResponse webResponse = new WebResponse();
-        UserStudent userStudent = userStudentDao.selectUserStudent((String) params.get("id"), (String) params.get("password"));
-        if (userStudent == null) {
+        int userStudent = userStudentDao.selectUserStudent((String) params.get("id"), (String) params.get("password"));
+        if (userStudent == 0 || userStudent > 1) {
             //判断登录时这个id重复多次登录报错，将该id锁1个小时
-            redisTemplate.opsForValue().append("userstudent_id"+params.get("id").toString(),"1");
-            webResponse.setResultMsg("密码或者用户不对！！！"+params.get("id")+"\t");
+            redisTemplate.opsForValue().append("userstudent_id" + params.get("id").toString(), "1");
+            webResponse.setResultMsg("密码或者用户不对！！！" + params.get("id") + "\t");
             webResponse.setResultCode("400");
         } else {
             //新产生的token
@@ -77,7 +76,7 @@ public class LoginImpl implements LoginService {
             map.put("token", token);
             map.put("id", params.get("id").toString());
 
-            redisTemplate.opsForValue().set("token_userStudent_id:"+params.get("id").toString(), token, 10, TimeUnit.MINUTES);
+            redisTemplate.opsForValue().set("token_userStudent_id:" + params.get("id").toString(), token, 10, TimeUnit.MINUTES);
             webResponse.setResultObj(map);
             webResponse.setResultCode("200");
             webResponse.setResultMsg("token生成成功");
@@ -87,10 +86,10 @@ public class LoginImpl implements LoginService {
 
     @Override
     public WebResponse checkToken(Map params) {
-        String token =(String)params.get("token");
-        String userid = (String)params.get("userid");
-        String redisId =(String) redisTemplate.opsForValue().get(token);
-        if(redisId==userid){
+        String token = (String) params.get("token");
+        String userid = (String) params.get("userid");
+        String redisId = (String) redisTemplate.opsForValue().get(token);
+        if (redisId == userid) {
 
         }
         return null;

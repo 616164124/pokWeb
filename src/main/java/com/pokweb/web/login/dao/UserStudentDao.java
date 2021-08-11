@@ -9,5 +9,5 @@ public interface UserStudentDao {
 
     int insertSelective(UserStudent record);
 
-    UserStudent selectUserStudent(@Param("id") String id, @Param("password") String password);
+    int selectUserStudent(@Param("id") String id, @Param("password") String password);
 }

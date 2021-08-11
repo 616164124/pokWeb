@@ -14,8 +14,9 @@ import java.util.Map;
 /**
  *
  */
-@Controller
+@RestController
 @RequestMapping("register")
+@CrossOrigin
 public class RegisterController {
     @Resource
     private UserStudentDao userStudentDao;

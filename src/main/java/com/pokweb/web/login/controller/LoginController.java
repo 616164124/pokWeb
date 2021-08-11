@@ -8,15 +8,14 @@ import com.pokweb.web.login.service.impl.LoginImpl;
 import com.pokweb.web.register.dao.UserWorkDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
-@Controller
+@RestController
+@CrossOrigin
 @RequestMapping("/pokweb")
 public class LoginController {
 
@@ -36,8 +35,6 @@ public class LoginController {
     public  WebResponse loginIn(@RequestBody Map<String, Object> params) {
         System.out.println("====");
         System.out.println(loginService);
-
-
         return  loginService.login(params);
     }
 }
