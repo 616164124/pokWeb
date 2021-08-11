@@ -5,8 +5,6 @@ import com.pokweb.web.login.bo.UserStudent;
 import com.pokweb.web.login.dao.UserStudentDao;
 import com.pokweb.web.register.bo.UserWork;
 import com.pokweb.web.register.dao.UserWorkDao;
-import org.springframework.boot.autoconfigure.cache.CacheProperties;
-import org.springframework.data.redis.support.collections.RedisList;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -51,7 +49,7 @@ public class RegisterController {
         if(params.isEmpty()){
             return new WebResponse("444","参数为空",params);
         }
-        //增加布隆过滤器
+        // TODO: 2021/8/10  增加布隆过滤器
         if(userWorkDao.selectByUserName(params.get("username"))>0){
 
             return new WebResponse("444",params.get("username")+"\t该用户名已经注册","");
