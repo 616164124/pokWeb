@@ -4,8 +4,10 @@ package com.pokweb.web.login.service.impl;
 import com.pokweb.common.response.WebResponse;
 import com.pokweb.web.login.dao.UserStudentDao;
 import com.pokweb.web.login.service.LoginService;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.concurrent.CustomizableThreadFactory;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

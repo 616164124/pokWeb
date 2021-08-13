@@ -7,6 +7,7 @@ import com.pokweb.web.login.service.LoginService;
 import com.pokweb.web.login.service.impl.LoginImpl;
 import com.pokweb.web.register.dao.UserWorkDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,9 +19,6 @@ import java.util.Map;
 @CrossOrigin
 @RequestMapping("/pokweb")
 public class LoginController {
-
-    @Autowired
-    private LoginImpl loginImpl;
 
     @Resource
     private LoginService loginService;
