@@ -4,14 +4,8 @@ package com.pokweb.web.login.service.impl;
 import com.pokweb.common.response.WebResponse;
 import com.pokweb.web.login.dao.UserStudentDao;
 import com.pokweb.web.login.service.LoginService;
-import io.jsonwebtoken.JwtBuilder;
-import io.jsonwebtoken.JwtParser;
-import io.jsonwebtoken.Jwts;
-import io.netty.util.internal.StringUtil;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.concurrent.CustomizableThreadFactory;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -32,8 +26,8 @@ public class LoginImpl implements LoginService {
     @Override
     public WebResponse login(Map params) {
         System.out.println("=====123");
-        if(params.isEmpty()){
-            return new WebResponse("401","失败","账号或密码不对");
+        if (params.isEmpty()) {
+            return new WebResponse("401", "失败", "账号或密码不对");
         }
         int userStudent = userStudentDao.selectUserStudent(params.get("id").toString(), params.get("password").toString());
         if (userStudent == 0 || userStudent > 1) {
