@@ -33,7 +33,7 @@ public class RegisterController {
         UserStudent userStudent = new UserStudent();
         userStudent.setName("学生王");
         int insert = userStudentDao.insert(userStudent);
-        WebResponse chengong = new WebResponse("","","");
+        WebResponse chengong = new WebResponse("","",insert);
         return chengong;
     }
 
@@ -69,4 +69,6 @@ public class RegisterController {
         WebResponse chengong = new WebResponse("200", "chengong",insert);
         return chengong;
     }
+
+
 }
