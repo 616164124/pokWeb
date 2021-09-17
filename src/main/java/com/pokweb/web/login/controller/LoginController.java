@@ -21,10 +21,23 @@ public class LoginController {
      * @param params
      * @return
      */
+
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public  WebResponse loginIn(@RequestBody Map<String, Object> params) {
         System.out.println("====");
         System.out.println(loginService);
         return  loginService.login(params);
+    }
+
+    @RequestMapping(value = "getMenu",method = RequestMethod.GET)
+    public WebResponse getMenu(@RequestParam String token){
+        System.out.println("token======="+token);
+        if (token==null ||""==token){
+            return null;
+        }
+        WebResponse menu = loginService.getMenu(token);
+
+
+        return menu;
     }
 }

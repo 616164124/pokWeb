@@ -87,4 +87,12 @@
       </if>
     </trim>
   </insert>
+<!--1级菜单 通过用户id，获取menu信息 -->
+  <select id="getMenu" parameterType = "java.lang.String" resultType="java.util.Map">
+    select * from menu  where level=1 and  menu_url in (
+      select url  from authority  where identity =(select identity from user_student s where s.id=#{id}) and effect=0
+    )
+
+  </select>
+
 </mapper>

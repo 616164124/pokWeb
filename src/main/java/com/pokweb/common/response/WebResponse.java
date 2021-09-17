@@ -1,6 +1,8 @@
 package com.pokweb.common.response;
 
 
+import org.springframework.http.HttpStatus;
+
 import java.io.Serializable;
 
 /**
@@ -8,7 +10,7 @@ import java.io.Serializable;
  */
 public class WebResponse implements Serializable {
     private static final long serialVersionUID = 1L;
-    private String resultCode = "000000";//成功
+    private String resultCode = "";
     private String resultMsg = "";
     private Object resultObj = null;
 
@@ -20,11 +22,58 @@ public class WebResponse implements Serializable {
         this.resultMsg = message;
         this.resultObj=resultObj;
     }
-    public static WebResponse ok(String msg){
+
+    /**
+     * ok
+     * set resultObj
+     * @param obj
+     * @return
+     */
+    public static WebResponse ok(Object obj){
         WebResponse webResponse = new WebResponse();
         webResponse.setResultCode("000000");
         webResponse.setResultMsg("success");
-        webResponse.setResultObj(msg);
+        webResponse.setResultObj(obj);
+        return webResponse;
+    }
+
+    /**
+     * ok
+     *
+     * @return
+     */
+    public static WebResponse ok(){
+        WebResponse webResponse = new WebResponse();
+        webResponse.setResultCode("000000");
+        webResponse.setResultMsg("success");
+        return webResponse;
+    }
+
+    /**
+     * error
+     *
+     * @param code
+     * @param msg
+     * @param obj
+     * @return
+     */
+    public static WebResponse error(String code,String msg,Object obj){
+        WebResponse webResponse = new WebResponse();
+        webResponse.setResultCode(code);
+        webResponse.setResultMsg(msg);
+        webResponse.setResultObj(obj);
+        return webResponse;
+    }
+
+    /**
+     * error
+     *
+     * @return
+     */
+    public static WebResponse error(){
+        WebResponse webResponse = new WebResponse();
+        webResponse.setResultCode("99999999");
+        webResponse.setResultMsg("未知异常，请联系管理员");
         return webResponse;
     }
 

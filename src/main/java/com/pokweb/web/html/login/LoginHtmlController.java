@@ -14,12 +14,9 @@ import javax.annotation.Resource;
 public class LoginHtmlController {
 
 
-    @Resource
-    private Gson gson;
-
     @RequestMapping("/login")
     public String login(){
-
+        Gson gson = new Gson();
         String s = gson.toJson("jkfsfkshfk");
         return "login";
     }
