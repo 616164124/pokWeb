@@ -13,7 +13,7 @@
     <result column="Department" jdbcType="VARCHAR" property="department" />
   </resultMap>
   <select id="selectUserStudent"  parameterType="java.lang.String"  resultType="int" >
-    select count(1) from user_student  where  id=#{id} and password=#{password}
+    select count(1) from user_student  where   password=#{password} and id=#{id}
   </select>
 
   <insert id="insert" parameterType="com.pokweb.web.login.bo.UserStudent">
