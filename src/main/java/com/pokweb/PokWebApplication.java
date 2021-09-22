@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan("com.pokweb.web.*.dao")
+@MapperScan("com.pokweb.*.*.dao")
 public class PokWebApplication {
 
     public static void main(String[] args) {

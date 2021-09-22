@@ -6,6 +6,7 @@ import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -17,7 +18,6 @@ import java.util.Map;
 @Aspect
 @Component
 public class TokenAspect {
-
     @Pointcut("execution(public * com.pokweb.web.*.controller.*.*(..))")
     public void doOperation() {
 
@@ -26,25 +26,14 @@ public class TokenAspect {
 
     @Before("doOperation()")
     public void before(JoinPoint joinPoint) throws Throwable{
-        Object[] objs =joinPoint.getArgs();
-        for (Object obj : objs) {
-            Map object =(Map) obj;
-            if (object.containsKey("token")) {
-                String token = object.get("token").toString();
-                if(token=="" ||(object.get("id").toString()=="" && object.get("password").toString()=="")){
-                return;
-                }
-            }
-            System.out.println("前置通知参数通知"+object.toString());
 
-
-        }
     }
 
 
     @AfterReturning(returning = "object", pointcut = "doOperation()")
-    public void doAfterReturning(Object object) {
-        WebResponse resultBody = (WebResponse) object;
+    public Object doAfterReturning(Object object) {
+
+
         String str =null;
 //        try {
 //            str=base64EnStr(resultBody.getResult());
@@ -53,6 +42,7 @@ public class TokenAspect {
 //        }
 //        resultBody.setResult(str);
 //        System.out.println("ǰ��֪ͨ��Ӧ�Ĳ���:"+resultBody);
+        return "iiiii";
     }
 
 //
@@ -65,4 +55,11 @@ public class TokenAspect {
 //        byte[] decodeStr = Base64.getDecoder().decode(encodeStr);
 //        return new String(decodeStr, "UTF-8");
 //    }
+
+    public boolean checkToken(String token){
+
+
+    return true;
+    }
+
 }
