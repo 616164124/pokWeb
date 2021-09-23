@@ -12,19 +12,29 @@
     <result column="major" jdbcType="VARCHAR" property="major" />
     <result column="Department" jdbcType="VARCHAR" property="department" />
   </resultMap>
-  <select id="selectUserStudent"  parameterType="java.lang.String"  resultType="int" >
-    select count(1) from user_student  where   password=#{password} and id=#{id}
+  <select id="selectUserStudent"  parameterType="java.lang.String"  resultType="hashmap" >
+    select * from user_student  where   password=#{password} and id=#{id}
   </select>
 
+  <!--  selectUser-->
+  <select id="selectUser"  parameterType="java.lang.String"  resultType="hashmap" >
+    select * from
+    <if test="radio == 'xs'">user_student</if>
+    <if test="radio=='gzry'">user_work</if>
+    <if test="radio=='lsyh'">user_temporary</if>
+    where   password=#{password} and id=#{id}
+  </select>
+
+
   <insert id="insert" parameterType="com.pokweb.web.login.bo.UserStudent">
-    insert into user_student (id, `name`, `password`, 
-      `identity`, phone, phone_sos, 
-      email, major, Department
-      )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{identity,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{phoneSos,jdbcType=VARCHAR}, 
-      #{email,jdbcType=VARCHAR}, #{major,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR}
-      )
+    insert into user_student (id, `name`, `password`,
+                              `identity`, phone, phone_sos,
+                              email, major, Department
+    )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+            #{identity,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{phoneSos,jdbcType=VARCHAR},
+            #{email,jdbcType=VARCHAR}, #{major,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR}
+           )
   </insert>
   <insert id="insertSelective" parameterType="com.pokweb.web.login.bo.UserStudent">
     insert into user_student
@@ -87,7 +97,7 @@
       </if>
     </trim>
   </insert>
-<!--1级菜单 通过用户id，获取menu信息 -->
+  <!--1级菜单 通过用户id，获取menu信息 -->
   <select id="getMenu" parameterType = "java.lang.String" resultType="java.util.Map">
     select * from menu  where level=1 and  menu_url in (
       select url  from authority  where identity =(select identity from user_student s where s.id=#{id}) and effect=0

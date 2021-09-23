@@ -13,5 +13,7 @@ public interface UserStudentDao {
     int insertSelective(UserStudent record);
     List<Map> getMenu(String id);
 
-    int selectUserStudent(@Param("id") String id, @Param("password") String password);
+    Map selectUserStudent(@Param("id") String id, @Param("password") String password);
+    //用于查看
+    Map selectUser(@Param("id") String id, @Param("password") String password,@Param("radio")String radio);
 }

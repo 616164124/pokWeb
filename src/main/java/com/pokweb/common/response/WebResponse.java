@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import java.io.Serializable;
 
 /**
+ * resultCode 为999999时表示该消息不必展示给用户看
+ * 为888888时表示resultMsg需要展示给用户看的错误信息
  * 返回信息的统一数据形式
  */
 public class WebResponse implements Serializable {
@@ -51,15 +53,14 @@ public class WebResponse implements Serializable {
 
     /**
      * error
-     *
-     * @param code
+     *展示给用户看的错误信息
      * @param msg
      * @param obj
      * @return
      */
-    public static WebResponse error(String code,String msg,Object obj){
+    public static WebResponse error(String msg,Object obj){
         WebResponse webResponse = new WebResponse();
-        webResponse.setResultCode(code);
+        webResponse.setResultCode("888888");
         webResponse.setResultMsg(msg);
         webResponse.setResultObj(obj);
         return webResponse;
@@ -72,7 +73,7 @@ public class WebResponse implements Serializable {
      */
     public static WebResponse error(){
         WebResponse webResponse = new WebResponse();
-        webResponse.setResultCode("99999999");
+        webResponse.setResultCode("999999");
         webResponse.setResultMsg("未知异常，请联系管理员");
         return webResponse;
     }

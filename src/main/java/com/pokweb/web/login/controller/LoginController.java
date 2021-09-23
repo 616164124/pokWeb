@@ -37,7 +37,6 @@ public class LoginController {
             System.out.println("token=======" + token);
             menu = loginService.getMenu(token);
         }
-
         return menu;
     }
 }
