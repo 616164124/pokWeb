@@ -1,9 +1,9 @@
 package com.pokweb.web.login.service.impl;
 
 
-import com.google.gson.Gson;
-import com.pokweb.common.base.User;
+
 import com.pokweb.common.response.WebResponse;
+import com.pokweb.common.utill.JwtUtil;
 import com.pokweb.common.utill.MapToUser;
 import com.pokweb.web.login.dao.UserStudentDao;
 import com.pokweb.web.login.service.LoginService;
@@ -24,14 +24,16 @@ public class LoginImpl implements LoginService {
     private UserStudentDao userStudentDao;
     @Resource
     private RedisTemplate redisTemplate;
+
     private String key = "";
 
     @Override
     public WebResponse login(Map params) {
-        System.out.println("=====123");
         if (params.isEmpty()) {
             return new WebResponse("888888", "账号或密码不能为空！！", "账号或密码不能为空！");
         }
+        //todo 验证码
+
         WebResponse tokens = getTokens(params);
         return tokens;
     }
@@ -85,31 +87,17 @@ public class LoginImpl implements LoginService {
             key = "token_userAdmin_id:";
         }
 
-        if (redisTemplate.hasKey(key + params.get("name").toString())) {
-            //已经存在redis中了
-            token = redisTemplate.opsForValue().get(key + params.get("name").toString()).toString();
-            //todo 直接判断token是否生效
-//            if(checkToken()){
-//
-//            }
-            map.put("token", token);
-            map.put("name", params.get("name").toString());
-            webResponse.setResultObj(map);
-            webResponse.setResultCode("200");
-            webResponse.setResultMsg("");
-            return webResponse;
-        }
         //查看学生表，工作人员表，临时表，admin表
         user = userStudentDao.selectUser((String) params.get("name"), (String) params.get("password"), params.get("radio").toString());
-
+        JwtUtil jwtUtil = new JwtUtil();
         if (user == null) {
             webResponse.setResultMsg("密码或者用户名不正确！！！" + params.get("name") + "\t");
             webResponse.setResultCode("888888");
         } else {
             user.remove("password");
-            user.remove("id");
+//            user.remove("id");
             //新产生的token
-            token = UUID.randomUUID().toString();
+            token = jwtUtil.JWTBuild(user);
             MapToUser mapToUser = new MapToUser();
             map.put("user",user);
             map.put("token", token);

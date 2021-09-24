@@ -17,7 +17,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 
         //获取请求地址
         String requestURI = request.getRequestURI();
-        if ("/pokweb/login".equals(requestURI)) {
+        if (!"/pokweb/login".equals(requestURI)) {
 //            return false;
         }else {
             String id =(String) request.getSession().getAttribute("id");
