@@ -2,6 +2,7 @@ package com.pokweb.web.login.controller;
 
 import com.pokweb.common.response.WebResponse;
 import com.pokweb.web.login.service.LoginService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -12,19 +13,20 @@ import java.util.Map;
 @RequestMapping("/pokweb")
 public class LoginController {
 
+
     @Resource
     private LoginService loginService;
 
     /**
      * TODO 验证码
      *
-     * @param params
+     * @param params 为{data：{name:1234,password:12344}}
      * @return
      */
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public WebResponse loginIn(@RequestBody Map<String, Object> params) {
-        System.out.println("====");
+        params= (Map)params.get("data");
         System.out.println(loginService);
         return loginService.login(params);
     }

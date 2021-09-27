@@ -96,7 +96,7 @@ public class LoginImpl implements LoginService {
         } else {
             user.remove("password");
 //            user.remove("id");
-            //新产生的token
+            //产生的token
             token = jwtUtil.JWTBuild(user);
             MapToUser mapToUser = new MapToUser();
             map.put("user",user);

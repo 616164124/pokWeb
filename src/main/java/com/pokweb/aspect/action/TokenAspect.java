@@ -32,8 +32,6 @@ public class TokenAspect {
 
     @AfterReturning(returning = "object", pointcut = "doOperation()")
     public Object doAfterReturning(Object object) {
-
-
         String str =null;
 //        try {
 //            str=base64EnStr(resultBody.getResult());
