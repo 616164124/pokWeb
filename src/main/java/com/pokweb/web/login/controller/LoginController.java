@@ -26,7 +26,7 @@ public class LoginController {
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public WebResponse loginIn(@RequestBody Map<String, Object> params) {
-        params= (Map)params.get("data");
+        params = (Map) params.get("data");
         System.out.println(loginService);
         return loginService.login(params);
     }
@@ -34,11 +34,9 @@ public class LoginController {
     @RequestMapping(value = "getMenu", method = RequestMethod.POST)
     public WebResponse getMenu(@RequestBody Map<String, Object> params) {
         WebResponse menu = new WebResponse();
-        if (params.containsKey("token")) {
-            String token = (String) params.get("token");
-            System.out.println("token=======" + token);
-            menu = loginService.getMenu(token);
-        }
+        Map data = (Map) params.get("data");
+        String id = data.get("id").toString();
+        menu = loginService.getMenu(id);
         return menu;
     }
 }

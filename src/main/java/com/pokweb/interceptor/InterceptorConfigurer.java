@@ -18,7 +18,7 @@ public class InterceptorConfigurer implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         System.out.println("====addInterceptors======");
         //添加对用户未登录的拦截器，并添加排除项
-       registry.addInterceptor(loginInterceptor);
+//       registry.addInterceptor(loginInterceptor);
 
     }
 

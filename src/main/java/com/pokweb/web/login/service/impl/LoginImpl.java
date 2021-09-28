@@ -39,9 +39,7 @@ public class LoginImpl implements LoginService {
     }
 
     @Override
-    public WebResponse getMenu(String tokens) {
-        String id = tokens.split("_")[0];
-        String token = tokens.split("_")[1];
+    public WebResponse getMenu(String id) {
         List<Map> menu = userStudentDao.getMenu(id);
         return WebResponse.ok(menu);
     }
