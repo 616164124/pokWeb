@@ -1,12 +1,12 @@
 package com.pokweb.web.login.service.impl;
 
 
-
 import com.pokweb.common.response.WebResponse;
 import com.pokweb.common.utill.JwtUtil;
 import com.pokweb.common.utill.MapToUser;
 import com.pokweb.web.login.dao.UserStudentDao;
 import com.pokweb.web.login.service.LoginService;
+
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.concurrent.CustomizableThreadFactory;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,6 @@ import java.util.concurrent.*;
 
 @Service
 public class LoginImpl implements LoginService {
-
     private ExecutorService POOL = Executors.newFixedThreadPool(16, new CustomizableThreadFactory("SbxxService-pool-"));
     @Resource
     private UserStudentDao userStudentDao;
@@ -93,11 +92,10 @@ public class LoginImpl implements LoginService {
             webResponse.setResultCode("888888");
         } else {
             user.remove("password");
-//            user.remove("id");
             //产生的token
             token = jwtUtil.JWTBuild(user);
             MapToUser mapToUser = new MapToUser();
-            map.put("user",user);
+            map.put("user", user);
             map.put("token", token);
             map.put("id", params.get("name").toString());
             redisTemplate.opsForValue().set("token_userStudent_id:" + params.get("name").toString(), token, 10, TimeUnit.MINUTES);
@@ -105,6 +103,7 @@ public class LoginImpl implements LoginService {
             webResponse.setResultCode("200");
             webResponse.setResultMsg("");
         }
+
         return webResponse;
     }
 

@@ -2,7 +2,8 @@ package com.pokweb.web.login.controller;
 
 import com.pokweb.common.response.WebResponse;
 import com.pokweb.web.login.service.LoginService;
-import org.springframework.beans.factory.annotation.Value;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -13,19 +14,27 @@ import java.util.Map;
 @RequestMapping("/pokweb")
 public class LoginController {
 
-
+    private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
     @Resource
     private LoginService loginService;
 
     /**
-     * TODO 验证码
      *
-     * @param params 为{data：{name:1234,password:12344}}
+     * @param params
+     *
+     * {
+     *   "data": {
+     *     "name": "123456",
+     *     "password": "123456",
+     *     "radio": "xs"
+     *   },
+     *   "token": "login"
+     * }
      * @return
      */
-
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public WebResponse loginIn(@RequestBody Map<String, Object> params) {
+        logger.info("进入loginIn方法的参数{}",params);
         params = (Map) params.get("data");
         System.out.println(loginService);
         return loginService.login(params);
@@ -33,10 +42,20 @@ public class LoginController {
 
     @RequestMapping(value = "getMenu", method = RequestMethod.POST)
     public WebResponse getMenu(@RequestBody Map<String, Object> params) {
-        WebResponse menu = new WebResponse();
         Map data = (Map) params.get("data");
         String id = data.get("id").toString();
-        menu = loginService.getMenu(id);
+        WebResponse  menu = loginService.getMenu(id);
         return menu;
+    }
+
+    /**
+     * 获取验证码
+     * @param params
+     * @return
+     */
+    @RequestMapping(value = "",method = RequestMethod.GET)
+    public WebResponse getVerifycode(Map<String, Object> params){
+//        loginService.getVerifcode()
+        return WebResponse.ok();
     }
 }
