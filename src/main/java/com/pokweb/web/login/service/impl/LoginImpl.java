@@ -107,29 +107,6 @@ public class LoginImpl implements LoginService {
         return webResponse;
     }
 
-    /**
-     * 校验JWT值是否有效
-     *
-     * @param token
-     * @return
-     */
-    //todo
-    public boolean checkToken(String token) {
-
-
-        return true;
-    }
-
-    /**
-     * 获取JWT
-     *
-     * @return
-     */
-    public String getJWT() {
-
-        return null;
-    }
-
 
     public static void main(String[] args) {
         System.out.println(Instant.now().toEpochMilli());
