@@ -1,6 +1,7 @@
 package com.pokweb.web.login.controller;
 
 import com.pokweb.common.response.WebResponse;
+import com.pokweb.common.utill.JwtUtil;
 import com.pokweb.web.login.service.LoginService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,4 +58,17 @@ public class LoginController {
 //        loginService.getVerifcode()
         return WebResponse.ok();
     }
+    /**
+     * 单独一个接口来验证token是否有效
+     * 验证token是否有效
+     *
+     */
+    @RequestMapping(value = "getToken",method = RequestMethod.GET)
+    public WebResponse getToken(Map<String, Object> params){
+
+        String token = params.get("token").toString();
+
+        return WebResponse.ok("token有效");
+    }
+
 }
