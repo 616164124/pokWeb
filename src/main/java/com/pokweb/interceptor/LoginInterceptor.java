@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Enumeration;
+import java.util.UUID;
 
 @Component
 public class LoginInterceptor implements HandlerInterceptor {
@@ -52,6 +53,10 @@ public class LoginInterceptor implements HandlerInterceptor {
 
         }
 
+    }
+
+    public static void main(String[] args) {
+        System.out.println(UUID.randomUUID().toString().replaceAll("-", ""));
     }
 
 }

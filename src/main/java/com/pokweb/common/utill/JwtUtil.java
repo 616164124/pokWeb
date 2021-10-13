@@ -7,7 +7,9 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
+import org.springframework.util.DigestUtils;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +20,7 @@ import java.util.Properties;
  */
 @Component
 public class JwtUtil {
-
+    //key最好为40位
     private static final String JWT_WEB_KEY = "MTExMTIxZmFkc3dhZGR1";
     private static final String JWT_THRID_KEY="MTExMTIxZmFkc3dhZGR2";
     /**
@@ -41,6 +43,7 @@ public class JwtUtil {
             Claims body = Jwts.parser().setSigningKey(JWT_WEB_KEY).parseClaimsJws(token).getBody();
             webResponse.setResultCode("000000");
             webResponse.setResultObj(body.getSubject());
+            DigestUtils.md5Digest("sfsfsfs".getBytes(StandardCharsets.UTF_8));
         } catch (Exception e) {
             webResponse.setResultCode("333333");
             webResponse.setResultMsg(e.toString());
