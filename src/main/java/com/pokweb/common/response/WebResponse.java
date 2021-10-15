@@ -77,6 +77,21 @@ public class WebResponse implements Serializable {
         return webResponse;
     }
 
+    /**
+     * warn
+     *
+     * @return
+     */
+    public static WebResponse warn(String resultMsg){
+        WebResponse webResponse = new WebResponse();
+        webResponse.setResultCode("777777");
+        webResponse.setResultMsg(resultMsg);
+        return webResponse;
+    }
+
+
+
+
     public WebResponse(Object ret_obj) {
         this.setResultObj(ret_obj);
     }

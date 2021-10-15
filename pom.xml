@@ -101,6 +101,11 @@
             <artifactId>aspectjweaver</artifactId>
             <version>1.9.4</version>
         </dependency>
+<!--        收发邮件-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
 
 <!--        &lt;!&ndash;        ribbitmq&ndash;&gt;-->
 <!--        <dependency>-->
