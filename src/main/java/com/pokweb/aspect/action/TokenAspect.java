@@ -14,6 +14,7 @@ import java.util.Map;
 @Aspect
 @Component
 public class TokenAspect {
+//切点（com.pokweb.web）下的内容
     @Pointcut("execution(public * com.pokweb.web.*.controller.*.*(..))")
     public void doOperation() {
     }
@@ -23,7 +24,7 @@ public class TokenAspect {
         JwtUtil jwtUtil = new JwtUtil();
         Map target = (Map) joinPoint.getArgs()[0];
         String token = target.get("token").toString();
-        if(!"login".equals(token)){
+        if(!"login".equals(token) && !"register".equals(token)){
             if(!"000000".equals(jwtUtil.parserJwt(token).getResultCode())){
                 throw  new Exception("token 验证不通过！！！");
 
