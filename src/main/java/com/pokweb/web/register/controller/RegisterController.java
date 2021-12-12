@@ -4,7 +4,6 @@ import com.pokweb.common.response.WebResponse;
 import com.pokweb.web.login.bo.UserStudent;
 import com.pokweb.web.login.dao.UserStudentDao;
 import com.pokweb.web.register.bo.UserWork;
-import com.pokweb.web.register.dao.UserTemporaryDao;
 import com.pokweb.web.register.dao.UserWorkDao;
 import com.pokweb.web.register.service.RegisterService;
 import org.springframework.stereotype.Controller;
