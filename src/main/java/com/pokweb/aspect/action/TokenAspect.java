@@ -27,7 +27,6 @@ public class TokenAspect {
         if(!"login".equals(token) && !"register".equals(token)){
             if(!"000000".equals(jwtUtil.parserJwt(token).getResultCode())){
                 throw  new Exception("token 验证不通过！！！");
-
             }
         }
     }

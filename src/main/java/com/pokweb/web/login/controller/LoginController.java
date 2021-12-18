@@ -11,6 +11,7 @@ import javax.annotation.Resource;
 import java.util.Map;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/pokweb")
 public class LoginController {
 
