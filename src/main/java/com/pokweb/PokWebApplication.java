@@ -7,7 +7,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication
-@MapperScan("com.pokweb.*.*.dao")
+@MapperScan(basePackages = { "com.pokweb.web.*.dao","com.pokweb.*.dao"})
 public class PokWebApplication {
 
     public static void main(String[] args) {

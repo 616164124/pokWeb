@@ -21,13 +21,8 @@ public class TokenAspect {
 
     @Before("doOperation()")
     public void before(JoinPoint joinPoint) throws Throwable {
-        JwtUtil jwtUtil = new JwtUtil();
-        Map target = (Map) joinPoint.getArgs()[0];
-        String token = target.get("token").toString();
-        if(!"login".equals(token) && !"register".equals(token)){
-            if(!"000000".equals(jwtUtil.parserJwt(token).getResultCode())){
-                throw  new Exception("token 验证不通过！！！");
-            }
+        if(verifyToken(joinPoint)){
+            throw  new Exception("token 验证不通过！！！");
         }
     }
 
@@ -62,4 +57,15 @@ public class TokenAspect {
         return true;
     }
 
+    public boolean verifyToken(JoinPoint joinPoint) {
+        JwtUtil jwtUtil = new JwtUtil();
+        Map target = (Map) joinPoint.getArgs()[0];
+        String token = target.get("token").toString();
+        if (!"login".equals(token) && !"register".equals(token)) {
+            if (!"000000".equals(jwtUtil.parserJwt(token).getResultCode())) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
