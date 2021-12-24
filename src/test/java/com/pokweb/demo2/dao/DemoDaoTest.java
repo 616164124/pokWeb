@@ -7,8 +7,6 @@ import javax.annotation.Resource;
 
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
 class DemoDaoTest {
 
@@ -17,8 +15,6 @@ class DemoDaoTest {
     @Test
     public void tes01(){
         Map<String, String> demo = demoDao.getDemo();
-
-
     }
 
 

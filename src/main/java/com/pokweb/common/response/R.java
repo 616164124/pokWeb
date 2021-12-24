@@ -15,6 +15,9 @@ public class R extends HashMap<String, Object> {
         put("msg", "success");
     }
 
+    /**
+     * @return 未知异常，请联系管理员
+     */
     public static R error() {
         return error(HttpStatus.INTERNAL_SERVER_ERROR.value(), "未知异常，请联系管理员");
     }
@@ -39,12 +42,12 @@ public class R extends HashMap<String, Object> {
 
     public static R ok(int code, Object result) {
         R r = new R();
-        r.put("code",code);
+        r.put("code", code);
         r.putResult(result);
         return r;
     }
 
-    public static R ok(Map<String,?> map) {
+    public static R ok(Map<String, ?> map) {
         R r = new R();
         r.putAll(map);
         return r;
