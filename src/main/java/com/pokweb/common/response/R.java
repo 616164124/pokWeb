@@ -33,6 +33,11 @@ public class R extends HashMap<String, Object> {
         return r;
     }
 
+    /**
+     *
+     * @param msg
+     * @return r
+     */
     public static R ok(String msg) {
         R r = new R();
         r.put("msg", msg);
