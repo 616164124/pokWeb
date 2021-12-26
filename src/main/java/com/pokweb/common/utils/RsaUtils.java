@@ -1,5 +1,6 @@
 package com.pokweb.common.utils;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.Base64Utils;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
@@ -30,9 +31,8 @@ public class RsaUtils extends Base64Utils {
 
     public static final String KEY_SHA = "SHA";
     public static final String KEY_MD5 = "MD5";
-
     private static final String PUBLIC_KEY = "RSAPublicKey_ya3J8FmvZVOikaRufBNu30Cn2wuiz5C6R3gAt8RD";
-    private static final String PRIVATE_KEY = "RSAPrivateKey_ya3J8FmvZVOikaRufBNu30Cn2wuiz5C6R3gAt8RD";
+    private static final String PRIVATE_KEY = "RSAPrivateKey_ya3J8FmvZVOikaRufBNu30Cn2wuiz5C6R3gAt8RDio";
 
 
     /**
@@ -326,6 +326,33 @@ public class RsaUtils extends Base64Utils {
         keyMap.put(PRIVATE_KEY, privateKey);
         return keyMap;
     }
+
+    /**
+     * 初始化密钥（自定义公钥和私钥）
+     *
+     * @param public_key 公钥
+     * @param prive_key 私钥
+     * @return
+     * @throws Exception
+     */
+    public static Map<String, Object> initKey(String public_key,String prive_key) throws Exception {
+        KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(KEY_ALGORITHM);
+        keyPairGen.initialize(1024);
+
+        KeyPair keyPair = keyPairGen.generateKeyPair();
+
+        // 公钥
+        RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
+
+        // 私钥
+        RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
+
+        Map<String, Object> keyMap = new HashMap<String, Object>(2);
+
+        keyMap.put(public_key, publicKey);
+        keyMap.put(prive_key, privateKey);
+        return keyMap;
+    }
     /**
      * BASE64解密
      *
@@ -394,8 +421,7 @@ public class RsaUtils extends Base64Utils {
             String decryptData = RsaUtils.decryptByPrivateKey(encryptData, privateKey);
             System.out.println("解密后：" + decryptData);
             System.out.println("============");
-            String sign = sign(data, publicKey);
-            System.out.println("sign："+sign);
+
 
 
         } catch (Exception e) {
