@@ -1,10 +1,10 @@
 package com.pokweb.common.response;
 
 
-
 import org.springframework.http.HttpStatus;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * resultCode 为999999时表示该消息不必展示给用户看
@@ -12,31 +12,37 @@ import java.io.Serializable;
  * 返回信息的统一数据形式
  */
 public class WebResponse implements Serializable {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 12385L;
     private String resultCode = "";
     private String resultMsg = "";
     private Object resultObj = null;
+    private LocalDateTime time = LocalDateTime.now();
+    private Object identifier = "";//预留位置
 
     public WebResponse() {
     }
 
-    public WebResponse(String code, String message,Object resultObj) {
+    public WebResponse(String code, String message, Object resultObj) {
         this.resultCode = code;
         this.resultMsg = message;
-        this.resultObj=resultObj;
+        this.resultObj = resultObj;
+        this.time = LocalDateTime.now();
     }
 
     /**
      * ok
      * set resultObj
+     *
      * @param obj
      * @return
      */
-    public static WebResponse ok(Object obj){
+    public static WebResponse ok(Object obj) {
         WebResponse webResponse = new WebResponse();
         webResponse.setResultCode("000000");
         webResponse.setResultMsg("success");
         webResponse.setResultObj(obj);
+        webResponse.setTime(LocalDateTime.now());
+        webResponse.setIdentifier("");
         return webResponse;
     }
 
@@ -45,25 +51,28 @@ public class WebResponse implements Serializable {
      *
      * @return
      */
-    public static WebResponse ok(){
+    public static WebResponse ok() {
         WebResponse webResponse = new WebResponse();
         webResponse.setResultCode("000000");
         webResponse.setResultMsg("success");
+        webResponse.setTime(LocalDateTime.now());
         return webResponse;
     }
 
     /**
      * error
-     *展示给用户看的错误信息
+     * 展示给用户看的错误信息
+     *
      * @param msg
      * @param obj
      * @return
      */
-    public static WebResponse error(String msg,Object obj){
+    public static WebResponse error(String msg, Object obj) {
         WebResponse webResponse = new WebResponse();
         webResponse.setResultCode("888888");
         webResponse.setResultMsg(msg);
         webResponse.setResultObj(obj);
+        webResponse.setTime(LocalDateTime.now());
         return webResponse;
     }
 
@@ -72,26 +81,13 @@ public class WebResponse implements Serializable {
      *
      * @return
      */
-    public static WebResponse error(){
+    public static WebResponse error() {
         WebResponse webResponse = new WebResponse();
         webResponse.setResultCode("999999");
         webResponse.setResultMsg("未知异常，请联系管理员");
+        webResponse.setTime(LocalDateTime.now());
         return webResponse;
     }
-
-    /**
-     * warn
-     *
-     * @return
-     */
-    public static WebResponse warn(String resultMsg){
-        WebResponse webResponse = new WebResponse();
-        webResponse.setResultCode("777777");
-        webResponse.setResultMsg(resultMsg);
-        return webResponse;
-    }
-
-
 
 
     public WebResponse(Object ret_obj) {
@@ -120,5 +116,21 @@ public class WebResponse implements Serializable {
 
     public void setResultObj(Object resultObj) {
         this.resultObj = resultObj;
+    }
+
+    public LocalDateTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalDateTime time) {
+        this.time = time;
+    }
+
+    public Object getIdentifier() {
+        return identifier;
+    }
+
+    public void setIdentifier(Object identifier) {
+        this.identifier = identifier;
     }
 }

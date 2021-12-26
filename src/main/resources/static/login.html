@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>static</title>
+    <script  type="text/javascript" src="./pub/jquery.min-1.10.2.js"></script>
+</head>
+<body>
+<p>static</p>
+<button onclick="bc()">按钮</button>
+</body>
+
+
+
+<script>
+
+    function bc(){
+        var json={
+            name:"hua",
+            sex:"man",
+        }
+        var url = "/demo2/getdemo";
+        $.ajax({
+            url: url,
+            contentType: "application/json",
+            data: JSON.stringify(json),
+            type: 'post',
+            success: function (data) {
+                if (data.code == '200') {
+                    mui.alert('注册成功',function(){
+                        window.history.back()
+                    });
+                } else {
+                    mui.toast(data.msg);
+                }
+            },
+            error: function () {
+                mui.toast('注册错误!');
+            }
+        });
+
+
+
+        // window.location.href="./home/home.html"
+    }
+</script>
+</html>

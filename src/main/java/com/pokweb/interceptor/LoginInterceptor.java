@@ -1,15 +1,12 @@
 package com.pokweb.interceptor;
 
-import com.pokweb.common.utill.JwtUtil;
+import com.pokweb.common.utils.JwtUtil;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Enumeration;
 import java.util.UUID;
 
 @Component

@@ -1,7 +1,6 @@
 package com.pokweb.web.login.controller;
 
 import com.pokweb.common.response.WebResponse;
-import com.pokweb.common.utill.JwtUtil;
 import com.pokweb.web.login.service.LoginService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,7 +53,7 @@ public class LoginController {
      * @param params
      * @return
      */
-    @RequestMapping(value = "",method = RequestMethod.GET)
+    @RequestMapping(value = "verification",method = RequestMethod.GET)
     public WebResponse getVerifycode(Map<String, Object> params){
 //        loginService.getVerifcode()
         return WebResponse.ok();

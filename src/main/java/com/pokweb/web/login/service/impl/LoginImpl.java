@@ -2,8 +2,8 @@ package com.pokweb.web.login.service.impl;
 
 
 import com.pokweb.common.response.WebResponse;
-import com.pokweb.common.utill.JwtUtil;
-import com.pokweb.common.utill.MapToUser;
+import com.pokweb.common.utils.JwtUtil;
+import com.pokweb.common.utils.MapToUser;
 import com.pokweb.web.login.dao.UserStudentDao;
 import com.pokweb.web.login.service.LoginService;
 

@@ -3,6 +3,7 @@ package com.pokweb.common.response;
 
 import org.springframework.http.HttpStatus;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,6 +14,8 @@ public class R extends HashMap<String, Object> {
     public R() {
         put("code", HttpStatus.OK.value());
         put("msg", "success");
+        put("time", LocalDateTime.now());
+        put("identifier","");
     }
 
     /**
@@ -30,6 +33,7 @@ public class R extends HashMap<String, Object> {
         R r = new R();
         r.put("code", code);
         r.put("msg", msg);
+        r.put("time", LocalDateTime.now());
         return r;
     }
 
@@ -41,6 +45,7 @@ public class R extends HashMap<String, Object> {
     public static R ok(String msg) {
         R r = new R();
         r.put("msg", msg);
+        r.put("time", LocalDateTime.now());
         return r;
     }
 
@@ -49,6 +54,7 @@ public class R extends HashMap<String, Object> {
         R r = new R();
         r.put("code", code);
         r.putResult(result);
+        r.put("time", LocalDateTime.now());
         return r;
     }
 
