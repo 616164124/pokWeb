@@ -20,9 +20,6 @@ import java.util.Map;
  * @version 1.0
  * @desc 公钥和私钥存放在properties文件的时候每行的末尾加上“\r\n\” <br/>
  * “\r\n” 起到换行的作用,最后的“\”在properties在里表示连接
- *
- * @author Neo
- * @date 2018-4-15 22:23:19
  * @since 1.0
  */
 public class RsaUtils extends Base64Utils {
