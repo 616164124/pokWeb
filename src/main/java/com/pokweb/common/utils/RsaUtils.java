@@ -31,6 +31,8 @@ public class RsaUtils extends Base64Utils {
 
     public static final String KEY_SHA = "SHA";
     public static final String KEY_MD5 = "MD5";
+
+
     private static final String PUBLIC_KEY = "RSAPublicKey_ya3J8FmvZVOikaRufBNu30Cn2wuiz5C6R3gAt8RD";
     private static final String PRIVATE_KEY = "RSAPrivateKey_ya3J8FmvZVOikaRufBNu30Cn2wuiz5C6R3gAt8RDio";
 
@@ -415,13 +417,12 @@ public class RsaUtils extends Base64Utils {
             String privateKey = RsaUtils.getPrivateKey(map);
             System.out.println("公钥：" + publicKey);
             System.out.println("私钥：" + privateKey);
-            String data = "Java是世界上最好的编程语言";
+            String data = "再见孙悟空！";
             String encryptData = RsaUtils.encryptByPublicKey(data, publicKey);
             System.out.println("加密后：" + encryptData);
             String decryptData = RsaUtils.decryptByPrivateKey(encryptData, privateKey);
             System.out.println("解密后：" + decryptData);
             System.out.println("============");
-
 
 
         } catch (Exception e) {
