@@ -6,6 +6,7 @@ import com.pokweb.web.login.dao.UserStudentDao;
 import com.pokweb.web.register.bo.UserWork;
 import com.pokweb.web.register.dao.UserWorkDao;
 import com.pokweb.web.register.service.RegisterService;
+import com.pokweb.web.register.service.SendMsgService;
 import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,6 +35,8 @@ public class RegisterController {
     @Resource
     private RegisterService registerService;
 
+    @Resource
+    private SendMsgService sendMsgService;
     @Resource
     private JavaMailSender javaMailSender;
 
@@ -114,24 +117,10 @@ public class RegisterController {
 //        redis保存5分钟 username  s
         boolean flag = registerService.saveRedisFor5(params.get("username").toString(), s);
         if (flag) {
-            SimpleMailMessage message = new SimpleMailMessage();
-            //邮件设置
-            message.setSubject("pokweb验证码");
-//        message.setText("【阿里云】您正在登录验证，验证码"+s+"，切勿将验证码泄露于他人，本条验证码有效期15分钟。");
-            message.setText("【pokweb】验证码：" + s + "，5分钟内有效。为了保证安全，请勿向他人泄露。谢谢您使用'pokweb'。");
-            message.setTo(params.get("username").toString());
-            message.setFrom(email);
-            try {
-                javaMailSender.send(message);
-            } catch (MailException e) {
-//                清除redis中的key
-                registerService.clearRedis(params.get("username").toString());
-                e.printStackTrace();
-                return WebResponse.error("发送邮件出错", "");
-            }
-            return WebResponse.ok("简单邮件发送成功");
+          WebResponse  webResponse= sendMsgService.sendEmail("pokweb验证码", "【pokweb】验证码：" + s + "，5分钟内有效。为了保证安全，请勿向他人泄露。谢谢您使用'pokweb'。", params.get("username").toString(),email);
+            return webResponse;
         } else {
-            return WebResponse.error("已经发送，5分钟内不能重复发送", "");
+            return WebResponse.error("已经发送验证码", "");
         }
 
 
