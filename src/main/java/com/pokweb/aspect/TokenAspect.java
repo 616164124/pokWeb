@@ -24,11 +24,11 @@ public class TokenAspect {
         JwtUtil jwtUtil = new JwtUtil();
         Map target = (Map) joinPoint.getArgs()[0];
         String token = target.get("token").toString();
-        if(!"login".equals(token) && !"register".equals(token)){
-            if(!"000000".equals(jwtUtil.parserJwt(token).getResultCode())){
-                throw  new Exception("token 验证不通过！！！");
-            }
-        }
+//        if(!"login".equals(token) && !"register".equals(token)){
+//            if(!"000000".equals(jwtUtil.parserJwt(token).getResultCode())){
+//                throw  new Exception("token 验证不通过！！！");
+//            }
+//        }
     }
 
 

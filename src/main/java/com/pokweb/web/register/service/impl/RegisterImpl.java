@@ -14,10 +14,12 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 public class RegisterImpl implements RegisterService {
-//    @Resource
+    //    @Resource
 //    private UserTemporaryDao userTemporaryDao;
     @Resource
     private RedisTemplate redisTemplate;
+
+    private static final String EMAIL_CODE = "emailcode:";
 
 //    @Override
 //    public WebResponse register(Map<String, Object> params) {
@@ -52,11 +54,29 @@ public class RegisterImpl implements RegisterService {
         if (rediscode == "") {
             redisTemplate.opsForValue().set(email, code, 3, TimeUnit.MINUTES);
             //发送email
-            sendEmail(code,email);
+            sendEmail(code, email);
 
         }
 
         return WebResponse.ok("成功");
+    }
+
+    /**
+     * redis保存5分钟
+     *
+     * @param username username
+     * @param code     验证码
+     */
+    @Override
+    public boolean saveRedisFor5(String username, String code) {
+//        先判断redis是否已经存在相同的usernam 存在直接返回，不存在保存
+        boolean s = redisTemplate.opsForValue().setIfAbsent(EMAIL_CODE + username, code, 300l, TimeUnit.SECONDS);
+        return s;
+    }
+
+    @Override
+    public void clearRedis(String username) {
+        redisTemplate.delete(EMAIL_CODE + username);
     }
 
     //发送邮件

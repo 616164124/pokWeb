@@ -6,6 +6,12 @@ import com.pokweb.web.login.dao.UserStudentDao;
 import com.pokweb.web.register.bo.UserWork;
 import com.pokweb.web.register.dao.UserWorkDao;
 import com.pokweb.web.register.service.RegisterService;
+import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.MailException;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +25,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("pokweb")
 @CrossOrigin
+@Slf4j
 public class RegisterController {
     @Resource
     private UserStudentDao userStudentDao;
@@ -26,6 +33,15 @@ public class RegisterController {
     private UserWorkDao userWorkDao;
     @Resource
     private RegisterService registerService;
+
+    @Resource
+    private JavaMailSender javaMailSender;
+
+    @Value("${email}")
+    private String email;
+    @Value("${password}")
+    private String password;
+
     /**
      * 学生不能注册为正式用户
      *
@@ -77,23 +93,48 @@ public class RegisterController {
 
     @RequestMapping(value = "register", method = RequestMethod.POST)
     public WebResponse registerTemporary(@RequestBody Map<String, Object> params) {
-        Map data =(Map) params.get("data");
+        Map data = (Map) params.get("data");
         WebResponse webResponse = registerService.register(data);
         return webResponse;
     }
 
     /**
-     *发送email的验证码
+     * 发送email的验证码
+     *
      * @param params
      * @return
      */
-    @RequestMapping(value = "emailcode",method = RequestMethod.POST)
-    public WebResponse sendCode(@RequestBody Map<String, Object> params){
-        Map data =(Map) params.get("data");
-        String email = data.get("email").toString();
-        String code = UUID.randomUUID().toString().replaceAll("-","").substring(0, 5);
-        WebResponse webResponse = registerService.sendEmailCode(code, email);
-        return webResponse;
+    @RequestMapping(value = "emailcode", method = RequestMethod.POST)
+    public WebResponse sendCode(@RequestBody Map<String, Object> params) {
+        params.forEach((k, v) -> {
+            log.info("params==> k={} v={}", k, v);
+        });
+
+        String s = UUID.randomUUID().toString().split("-")[1];
+//        redis保存5分钟 username  s
+        boolean flag = registerService.saveRedisFor5(params.get("username").toString(), s);
+        if (flag) {
+            SimpleMailMessage message = new SimpleMailMessage();
+            //邮件设置
+            message.setSubject("pokweb验证码");
+//        message.setText("【阿里云】您正在登录验证，验证码"+s+"，切勿将验证码泄露于他人，本条验证码有效期15分钟。");
+            message.setText("【pokweb】验证码：" + s + "，5分钟内有效。为了保证安全，请勿向他人泄露。谢谢您使用'pokweb'。");
+            message.setTo(params.get("username").toString());
+            message.setFrom(email);
+            try {
+                javaMailSender.send(message);
+            } catch (MailException e) {
+//                清除redis中的key
+                registerService.clearRedis(params.get("username").toString());
+                e.printStackTrace();
+                return WebResponse.error("发送邮件出错", "");
+            }
+            return WebResponse.ok("简单邮件发送成功");
+        } else {
+            return WebResponse.error("已经发送，5分钟内不能重复发送", "");
+        }
+
+
     }
 
 }
