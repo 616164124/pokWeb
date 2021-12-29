@@ -8,8 +8,10 @@ import com.pokweb.demo2.service.DemoService;
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.beans.Transient;
 import java.util.Map;
 
 @Service
@@ -19,10 +21,20 @@ public class DemoServiceImpl implements DemoService {
     private DemoDao demoDao;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public R getDemo() {
 
         Map<String, String> demo = demoDao.getDemo();
+        setDemo();
+
         return R.ok().putResult(demo);
+    }
+
+    @Override
+    public R setDemo(){
+        demoDao.setDemo();
+        int i=1/0;
+        return R.ok();
     }
 
     public static void main(String[] args) {

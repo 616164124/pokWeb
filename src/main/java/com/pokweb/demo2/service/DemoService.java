@@ -8,4 +8,5 @@ public interface DemoService {
 
     R getDemo();
 
+    R setDemo();
 }

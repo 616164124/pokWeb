@@ -4,10 +4,12 @@ import com.pokweb.common.response.R;
 import com.pokweb.common.response.WebResponse;
 import com.pokweb.common.utils.RsaUtils;
 import com.pokweb.demo2.service.DemoService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -17,6 +19,8 @@ import java.util.UUID;
 @RestController
 @RequestMapping("demo2")
 public class DemoController {
+    private final static Logger logger = LoggerFactory.getLogger(DemoController.class);
+
     @Resource
     public DemoService demoService;
 
@@ -34,8 +38,8 @@ public class DemoController {
         params.forEach((k, v) -> {
             System.out.println("k=" + k + "\tv=" + v);
         });
-        System.out.println(Public_key);
-        R demo = demoService.getDemo();
+        logger.info("1234");
+//        R demo = demoService.getDemo();
         return R.ok();
     }
 

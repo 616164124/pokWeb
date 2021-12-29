@@ -8,5 +8,9 @@
 
   </select>
 
+  <update id="setDemo">
+    update admin set username='99' where id='9'
+  </update>
+
 
 </mapper>
