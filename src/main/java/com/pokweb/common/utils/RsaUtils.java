@@ -30,10 +30,13 @@ public class RsaUtils extends Base64Utils {
 
     public static final String KEY_SHA = "SHA";
     public static final String KEY_MD5 = "MD5";
+    @Value("${PUBLIC_KEY}")
+    private static String PUBLIC_KEY;
 
-
-    private static final String PUBLIC_KEY = "RSAPublicKey_ya3J8FmvZVOikaRufBNu30Cn2wuiz5C6R3gAt8RD";
-    private static final String PRIVATE_KEY = "RSAPrivateKey_ya3J8FmvZVOikaRufBNu30Cn2wuiz5C6R3gAt8RDio";
+    @Value("${PRIVATE_KEY}")
+    private static String PRIVATE_KEY;
+//    private static  String PUBLIC_KEY = "RSAPublicKey_ya3J8FmvZVOikaRufBNu30Cn2wuiz5C6R3gAt8RD";
+//    private static final String PRIVATE_KEY = "RSAPrivateKey_ya3J8FmvZVOikaRufBNu30Cn2wuiz5C6R3gAt8RDio";
 
 
     /**

@@ -4,6 +4,7 @@ import com.pokweb.common.response.WebResponse;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.DigestUtils;
 
@@ -18,7 +19,8 @@ import java.util.Map;
 @Component
 public class JwtUtil {
     //key最好为40位
-    private static final String JWT_WEB_KEY = "MTExMTIxZmFkc3dhZGR1";
+    @Value("${JWT_WEB_KEY}")
+    private static String JWT_WEB_KEY;
     private static final String JWT_THRID_KEY="MTExMTIxZmFkc3dhZGR2";
     /**
      * 生成jwt
