@@ -9,7 +9,7 @@ import java.util.Map;
 
 
 public class R extends HashMap<String, Object> {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1862378L;
 
     public R() {
         put("code", HttpStatus.OK.value());

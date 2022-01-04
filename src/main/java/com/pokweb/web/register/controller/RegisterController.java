@@ -1,24 +1,18 @@
 package com.pokweb.web.register.controller;
 
 import com.pokweb.common.response.WebResponse;
+import com.pokweb.common.utils.RandomStrUtil;
 import com.pokweb.web.login.bo.UserStudent;
 import com.pokweb.web.login.dao.UserStudentDao;
 import com.pokweb.web.register.bo.UserWork;
 import com.pokweb.web.register.dao.UserWorkDao;
 import com.pokweb.web.register.service.RegisterService;
 import com.pokweb.web.register.service.SendMsgService;
-import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.MailException;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
 import javax.annotation.Resource;
 import java.util.Map;
-import java.util.UUID;
 
 /**
  *
@@ -37,8 +31,7 @@ public class RegisterController {
 
     @Resource
     private SendMsgService sendMsgService;
-    @Resource
-    private JavaMailSender javaMailSender;
+
 
     @Value("${email}")
     private String email;
@@ -95,9 +88,8 @@ public class RegisterController {
     }
 
     @RequestMapping(value = "register", method = RequestMethod.POST)
-    public WebResponse registerTemporary(@RequestBody Map<String, Object> params) {
-        Map data = (Map) params.get("data");
-        WebResponse webResponse = registerService.register(data);
+    public WebResponse registerTemporary(@RequestBody Map<String, String> params) {
+        WebResponse webResponse = registerService.register(params);
         return webResponse;
     }
 
@@ -113,11 +105,11 @@ public class RegisterController {
             log.info("params==> k={} v={}", k, v);
         });
 
-        String s = UUID.randomUUID().toString().split("-")[1];
+        String s = RandomStrUtil.getStr(6).toUpperCase();
 //        redis保存5分钟 username  s
         boolean flag = registerService.saveRedisFor5(params.get("username").toString(), s);
         if (flag) {
-          WebResponse  webResponse= sendMsgService.sendEmail("pokweb验证码", "【pokweb】验证码：" + s + "，5分钟内有效。为了保证安全，请勿向他人泄露。谢谢您使用'pokweb'。", params.get("username").toString(),email);
+            WebResponse webResponse = sendMsgService.sendEmail("pokweb验证码", "【pokweb】验证码：" + s + "，5分钟内有效。为了保证安全，请勿向他人泄露。谢谢您使用'pokweb'。", params.get("username").toString(), this.email);
             return webResponse;
         } else {
             return WebResponse.error("已经发送验证码", "");
@@ -126,4 +118,9 @@ public class RegisterController {
 
     }
 
+    @PostMapping("html/register")
+    public  WebResponse doRegister(@RequestBody Map<String, String> params){
+        WebResponse register = registerService.register(params);
+        return register;
+    }
 }

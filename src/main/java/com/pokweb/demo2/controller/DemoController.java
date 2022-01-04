@@ -19,7 +19,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("demo2")
 public class DemoController {
-    private final static Logger logger = LoggerFactory.getLogger(DemoController.class);
+    private static final Logger logger = LoggerFactory.getLogger(DemoController.class);
 
     @Resource
     public DemoService demoService;
@@ -48,6 +48,7 @@ public class DemoController {
         params.forEach((k, v) -> {
             System.out.println("k=" + k + "\tv=" + v);
         });
+
         try {
             Map<String, Object> map = RsaUtils.initKey();
             String publicKey = RsaUtils.getPublicKey(map);
@@ -74,7 +75,7 @@ public class DemoController {
         SimpleMailMessage message = new SimpleMailMessage();
         //邮件设置
         message.setSubject("邮件主题");
-        message.setText("验证码："+s);
+        message.setText("验证码：" + s);
         message.setTo("616164124@qq.com");
         message.setFrom("616164124@qq.com");
         javaMailSender.send(message);

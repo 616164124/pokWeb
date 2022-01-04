@@ -5,7 +5,7 @@ import com.pokweb.common.response.WebResponse;
 import java.util.Map;
 
 public interface RegisterService {
-    WebResponse register(Map<String, Object> params);
+    WebResponse register(Map<String, String> params);
 
     WebResponse sendEmailCode(String code, String email);
 

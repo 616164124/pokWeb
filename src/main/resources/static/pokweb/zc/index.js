@@ -1,12 +1,11 @@
 //发送邮件
 function fs() {
-
     var json = {}
     var username = $("#username").val()
     json.username=username
     json.token="login"
     $.ajax({
-        url: "/pokweb/emailcode",
+        url: "/pokweb/emailcode?v="+new Date().getTime(),
         type: "post",
         async: true,
         contentType: "application/json",
@@ -14,10 +13,7 @@ function fs() {
         success: function (data) {
             if(data.resultCode=="000000"){
                 setCookie()
-
             }
-
-
         }
     });
 
@@ -25,11 +21,15 @@ function fs() {
 
 //注册
 function zc() {
+
     var json = {}
     var username = $("#username").val()
     var password = $("#password").val()
     var password2 = $("#password2").val()
     var code = $("#code").val();
+    if(username.length>50){
+        alert("用户名不能多于50位")
+    }
     if (password != password2) {
         alert("2次密码不一致")
         return;
@@ -41,14 +41,20 @@ function zc() {
     json.username = username
     json.password = password
     json.code = code
+    json.token="register";
     $.ajax({
-        url: "/demo2/getdemo2",
+        url: "/pokweb/html/register?v="+new Date().getTime(),
         type: "post",
         async: true,
         contentType: "application/json",
         data: JSON.stringify(json),
         success: function (data) {
-            console.log(2);
+            if(data.resultCode=="000000"){
+                alert("注册成功")
+                window.location.href="../login/index.html"
+            }else if(data.resultCode=="888888"){
+                alert(data.resultMsg)
+            }
         }
     });
 

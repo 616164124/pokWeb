@@ -13,8 +13,6 @@ public class PokWebApplication {
 
     public static void main(String[] args) {
         ConfigurableApplicationContext run = SpringApplication.run(PokWebApplication.class, args);
-        //获取application.properties中的值
-        System.out.println(run.getEnvironment().getProperty("jwtsalt"));
 
     }
 

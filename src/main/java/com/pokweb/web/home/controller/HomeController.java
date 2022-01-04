@@ -1,18 +1,22 @@
 package com.pokweb.web.home.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 /**
  * @author mikael
  */
-@Controller
-@RequestMapping("home")
+@RestController
+@RequestMapping("pokweb")
 public class HomeController {
 
+    @RequestMapping(value = "main",method = RequestMethod.POST)
+    public void getMain(@RequestBody Map<String,String> params){
+        System.out.println("getmain");
 
+    }
 
 
 }

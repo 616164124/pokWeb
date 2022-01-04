@@ -7,6 +7,8 @@ import com.pokweb.common.utils.MapToUser;
 import com.pokweb.web.login.dao.UserStudentDao;
 import com.pokweb.web.login.service.LoginService;
 
+import com.pokweb.web.register.dao.UserWorkDao;
+import com.pokweb.web.register.service.impl.SendEmailImpl;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.concurrent.CustomizableThreadFactory;
 import org.springframework.stereotype.Service;
@@ -23,18 +25,25 @@ public class LoginImpl implements LoginService {
     private UserStudentDao userStudentDao;
     @Resource
     private RedisTemplate redisTemplate;
+    @Resource
+    private UserWorkDao userWorkDao;
+@Resource
+private JwtUtil jwtUtil;
 
     private String key = "";
 
     @Override
     public WebResponse login(Map params) {
         if (params.isEmpty()) {
-            return new WebResponse("888888", "账号或密码不能为空！！", "账号或密码不能为空！");
+            return new WebResponse("999999", "账号或密码不能为空！！", "账号或密码不能为空！");
         }
-        //todo 验证码
-
-        WebResponse tokens = getTokens(params);
-        return tokens;
+        int i = userWorkDao.countAdmin(params);
+        if (i == 1) {
+            String token = jwtUtil.JWTBuild(params);
+            return new WebResponse("000000","登录成功",token);
+        }else {
+            return new WebResponse("999999","账号密码错误","");
+        }
     }
 
     @Override

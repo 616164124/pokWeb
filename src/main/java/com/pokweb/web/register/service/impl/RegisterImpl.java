@@ -3,6 +3,7 @@ package com.pokweb.web.register.service.impl;
 import com.pokweb.common.response.WebResponse;
 //import com.pokweb.web.register.bo.UserTemporary;
 //import com.pokweb.web.register.dao.UserTemporaryDao;
+import com.pokweb.web.register.dao.UserWorkDao;
 import com.pokweb.web.register.service.RegisterService;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -14,12 +15,16 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 public class RegisterImpl implements RegisterService {
+
+    private static final String EMAIL_CODE = "emailcode:";
+
     //    @Resource
 //    private UserTemporaryDao userTemporaryDao;
     @Resource
     private RedisTemplate redisTemplate;
+    @Resource
+    private UserWorkDao userWorkDao;
 
-    private static final String EMAIL_CODE = "emailcode:";
 
 //    @Override
 //    public WebResponse register(Map<String, Object> params) {
@@ -43,8 +48,23 @@ public class RegisterImpl implements RegisterService {
 //    }
 
     @Override
-    public WebResponse register(Map<String, Object> params) {
-        return null;
+    public WebResponse register(Map<String, String> params) {
+        String usernameCode = null;
+        try {
+            usernameCode = redisTemplate.opsForValue().get(EMAIL_CODE + params.get("username")).toString();
+        } catch (Exception e) {
+            return WebResponse.error("验证码过期","");
+        }
+        if (params.get("yzm").equals(usernameCode)) {
+            int i = userWorkDao.countAdmin(params);
+            if (i < 1) {
+                 userWorkDao.insetAdmin(params);
+                return WebResponse.ok(i);
+            }else {
+                return WebResponse.error("用户名已被注册","");
+            }
+        }
+        return WebResponse.error("验证码验证不正确","");
     }
 
     //发送code，将code保存到redis
@@ -70,7 +90,7 @@ public class RegisterImpl implements RegisterService {
     @Override
     public boolean saveRedisFor5(String username, String code) {
 //        先判断redis是否已经存在相同的usernam 存在直接返回，不存在保存
-        boolean s = redisTemplate.opsForValue().setIfAbsent(EMAIL_CODE + username, code, 300l, TimeUnit.SECONDS);
+        boolean s = redisTemplate.opsForValue().setIfAbsent(EMAIL_CODE + username, code, 3000l, TimeUnit.SECONDS);
         return s;
     }
 
