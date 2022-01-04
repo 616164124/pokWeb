@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-
+@Deprecated
 public class R extends HashMap<String, Object> {
     private static final long serialVersionUID = 1862378L;
 

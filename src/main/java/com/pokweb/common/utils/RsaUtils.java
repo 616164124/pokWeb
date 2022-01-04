@@ -1,6 +1,7 @@
 package com.pokweb.common.utils;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.util.Base64Utils;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
@@ -22,6 +23,7 @@ import java.util.Map;
  * “\r\n” 起到换行的作用,最后的“\”在properties在里表示连接
  * @since 1.0
  */
+
 public class RsaUtils extends Base64Utils {
     public static final String KEY_ALGORITHM = "RSA";
     public static final String SIGNATURE_ALGORITHM = "MD5withRSA";
