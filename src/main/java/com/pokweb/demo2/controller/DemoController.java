@@ -40,15 +40,6 @@ public class DemoController {
         });
         logger.info("1234");
 //        R demo = demoService.getDemo();
-        return R.ok();
-    }
-
-    @PostMapping("getdemo2")
-    public WebResponse getDemo2(@RequestBody Map<String, String> params) {
-        params.forEach((k, v) -> {
-            System.out.println("k=" + k + "\tv=" + v);
-        });
-
         try {
             Map<String, Object> map = RsaUtils.initKey();
             String publicKey = RsaUtils.getPublicKey(map);
@@ -61,6 +52,23 @@ public class DemoController {
             String decryptData = RsaUtils.decryptByPrivateKey(encryptData, privateKey);
             System.out.println("解密后：" + decryptData);
             System.out.println("============");
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return R.ok();
+    }
+
+    @PostMapping("getdemo2")
+    public WebResponse getDemo2(@RequestBody Map<String, String> params) {
+        params.forEach((k, v) -> {
+            System.out.println("k=" + k + "\tv=" + v);
+        });
+
+        try {
+            R demo = demoService.getDemo();
 
         } catch (Exception e) {
             e.printStackTrace();
