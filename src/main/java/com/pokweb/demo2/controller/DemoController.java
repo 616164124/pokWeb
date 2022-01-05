@@ -7,7 +7,6 @@ import com.pokweb.common.utils.RsaUtils;
 import com.pokweb.demo2.service.DemoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.web.bind.annotation.*;
@@ -20,15 +19,14 @@ import java.util.UUID;
 @RequestMapping("demo2")
 public class DemoController {
     private static final Logger logger = LoggerFactory.getLogger(DemoController.class);
-
     @Resource
-    public DemoService demoService;
+    private DemoService demoService;
 
-    @Value("${public_key}")
-    private String Public_key;
-
-    @Value("${private_key}")
-    private String Private_key;
+//    @Value("${public_key}")
+//    private String Public_key;
+//
+//    @Value("${private_key}")
+//    private String Private_key;
 
     @Resource
     private JavaMailSenderImpl javaMailSender;
