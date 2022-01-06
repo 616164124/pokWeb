@@ -1,7 +1,6 @@
 package com.pokweb.common.response;
 
 
-import org.springframework.http.HttpStatus;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
