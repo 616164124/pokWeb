@@ -23,14 +23,12 @@ import java.util.Map;
  * “\r\n” 起到换行的作用,最后的“\”在properties在里表示连接
  * @since 1.0
  */
-
 public class RsaUtils extends Base64Utils {
     public static final String KEY_ALGORITHM = "RSA";
     public static final String SIGNATURE_ALGORITHM = "MD5withRSA";
 
     public static final String KEY_SHA = "SHA";
     public static final String KEY_MD5 = "MD5";
-
 
     private static final String PUBLIC_KEY = "RSAPublicKey_ya3J8FmvZVOikaRufBNu30Cn2wuiz5C6R3gAt8RD";
     private static final String PRIVATE_KEY = "RSAPrivateKey_ya3J8FmvZVOikaRufBNu30Cn2wuiz5C6R3gAt8RDio";

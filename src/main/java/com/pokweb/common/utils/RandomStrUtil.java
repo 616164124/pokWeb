@@ -5,6 +5,7 @@ import java.util.Random;
 import java.util.UUID;
 
 public class RandomStrUtil {
+
     /**
      * 获取指定长度的随机字符串
      *

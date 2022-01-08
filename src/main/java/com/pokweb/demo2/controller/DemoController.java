@@ -34,13 +34,13 @@ public class DemoController {
     private JavaMailSenderImpl javaMailSender;
 
     @PostMapping("getdemo")
-    public WebResponse getDemo(@RequestBody Map<String, String> params) {
+    public R getDemo(@RequestBody Map<String, String> params) {
         params.forEach((k, v) -> {
             System.out.println("k=" + k + "\tv=" + v);
         });
-        logger.warn("1234");
+        logger.info("1234");
 //        R demo = demoService.getDemo();
-        return WebResponse.ok();
+        return R.ok();
     }
 
     @PostMapping("getdemo2")

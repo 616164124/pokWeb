@@ -7,7 +7,8 @@ import java.time.LocalDateTime;
 
 /**
  * resultCode 为999999时表示该消息不必展示给用户看
- * 为888888时表示resultMsg需要展示给用户看的错误信息
+ *  为888888时表示resultMsg需要展示给用户看的错误信息
+ * resultMsg为错误消息
  * 返回信息的统一数据形式
  */
 public class WebResponse implements Serializable {
@@ -15,7 +16,7 @@ public class WebResponse implements Serializable {
     private String resultCode = "";
     private String resultMsg = "";
     private Object resultObj = null;
-    private LocalDateTime time = LocalDateTime.now();
+    private String time = LocalDateTime.now().toString();
     private Object identifier = "";//预留位置
 
     public WebResponse() {
@@ -25,7 +26,7 @@ public class WebResponse implements Serializable {
         this.resultCode = code;
         this.resultMsg = message;
         this.resultObj = resultObj;
-        this.time = LocalDateTime.now();
+        this.time = LocalDateTime.now().toString();
     }
 
     /**
@@ -40,7 +41,7 @@ public class WebResponse implements Serializable {
         webResponse.setResultCode("000000");
         webResponse.setResultMsg("success");
         webResponse.setResultObj(obj);
-        webResponse.setTime(LocalDateTime.now());
+        webResponse.setTime(LocalDateTime.now().toString());
         webResponse.setIdentifier("");
         return webResponse;
     }
@@ -54,7 +55,7 @@ public class WebResponse implements Serializable {
         WebResponse webResponse = new WebResponse();
         webResponse.setResultCode("000000");
         webResponse.setResultMsg("success");
-        webResponse.setTime(LocalDateTime.now());
+        webResponse.setTime(LocalDateTime.now().toString());
         return webResponse;
     }
 
@@ -71,7 +72,7 @@ public class WebResponse implements Serializable {
         webResponse.setResultCode("888888");
         webResponse.setResultMsg(msg);
         webResponse.setResultObj(obj);
-        webResponse.setTime(LocalDateTime.now());
+        webResponse.setTime(LocalDateTime.now().toString());
         return webResponse;
     }
 
@@ -84,7 +85,7 @@ public class WebResponse implements Serializable {
         WebResponse webResponse = new WebResponse();
         webResponse.setResultCode("999999");
         webResponse.setResultMsg("未知异常，请联系管理员");
-        webResponse.setTime(LocalDateTime.now());
+        webResponse.setTime(LocalDateTime.now().toString());
         return webResponse;
     }
 
@@ -117,13 +118,7 @@ public class WebResponse implements Serializable {
         this.resultObj = resultObj;
     }
 
-    public LocalDateTime getTime() {
-        return time;
-    }
 
-    public void setTime(LocalDateTime time) {
-        this.time = time;
-    }
 
     public Object getIdentifier() {
         return identifier;
@@ -131,5 +126,13 @@ public class WebResponse implements Serializable {
 
     public void setIdentifier(Object identifier) {
         this.identifier = identifier;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }

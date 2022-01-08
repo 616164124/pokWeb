@@ -25,7 +25,7 @@ public class DemoServiceImpl implements DemoService {
     public R getDemo() {
 
         Map<String, String> demo = demoDao.getDemo();
-        setDemo();
+//        setDemo();
 
         return R.ok().putResult(demo);
     }
