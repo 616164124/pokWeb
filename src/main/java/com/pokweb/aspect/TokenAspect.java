@@ -22,7 +22,7 @@ public class TokenAspect {
     @Before("doOperation()")
     public void before(JoinPoint joinPoint) throws Throwable {
         JwtUtil jwtUtil = new JwtUtil();
-        Map target = (Map) joinPoint.getArgs()[0];
+//        Map target = (Map) joinPoint.getArgs()[0];
 //        String token = target.get("token").toString();
 //        if(!"login".equals(token) && !"register".equals(token)){
 //            if(!"000000".equals(jwtUtil.parserJwt(token).getResultCode())){

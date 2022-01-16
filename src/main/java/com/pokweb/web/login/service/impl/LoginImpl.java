@@ -39,6 +39,7 @@ private JwtUtil jwtUtil;
         }
         int i = userWorkDao.countAdmin(params);
         if (i == 1) {
+//         todo   查看基础信息放入params中
             String token = jwtUtil.JWTBuild(params);
             return new WebResponse("000000","登录成功",token);
         }else {

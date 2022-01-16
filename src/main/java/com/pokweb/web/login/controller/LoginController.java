@@ -35,7 +35,7 @@ public class LoginController {
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public WebResponse loginIn(@RequestBody Map<String, Object> params) {
         logger.info("进入loginIn方法的参数{}",params);
-        return loginService.login(params);
+        return loginService.login((Map) params.get("data"));
     }
 
     @RequestMapping(value = "dologin", method = RequestMethod.POST)

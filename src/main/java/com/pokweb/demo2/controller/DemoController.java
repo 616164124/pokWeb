@@ -40,7 +40,7 @@ public class DemoController {
         });
         logger.info("1234");
 //        R demo = demoService.getDemo();
-        return R.ok();
+        return R.ok(200,params);
     }
 
     @PostMapping("getdemo2")
@@ -71,11 +71,11 @@ public class DemoController {
 
     @PostMapping("email")
     public String test01() {
-        String s = UUID.randomUUID().toString().split("-")[1];
+        String code = UUID.randomUUID().toString().split("-")[1];
         SimpleMailMessage message = new SimpleMailMessage();
         //邮件设置
         message.setSubject("邮件主题");
-        message.setText("验证码：" + s);
+        message.setText("验证码：" + code);
         message.setTo("616164124@qq.com");
         message.setFrom("616164124@qq.com");
         javaMailSender.send(message);

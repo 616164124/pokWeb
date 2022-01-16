@@ -1,9 +1,8 @@
 package com.pokweb.filter;
 
-import com.pokweb.common.utils.JwtUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 
 import javax.servlet.*;
@@ -13,8 +12,8 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @Order(1)
-@Configuration
-@WebFilter(filterName = "RequestFilter",urlPatterns = "/pokweb/*")
+@WebFilter(urlPatterns = {"/pokweb/*"},filterName = "RequestFilter")
+@Slf4j
 public class RequestFilter implements Filter {
 
     private static final Logger logger = LoggerFactory.getLogger(RequestFilter.class);
@@ -29,7 +28,7 @@ public class RequestFilter implements Filter {
 //        String s = request1.getHeader("token").toString();
 
         HttpSession session = request1.getSession();
-
+        logger.info("执行了11");
 //        session.setAttribute("token", s);
         chain.doFilter(request, response);
 
