@@ -12,6 +12,8 @@ import com.pokweb.web.register.service.impl.SendEmailImpl;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.concurrent.CustomizableThreadFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
+import sun.security.provider.MD5;
 
 import javax.annotation.Resource;
 import java.time.Instant;
@@ -27,23 +29,27 @@ public class LoginImpl implements LoginService {
     private RedisTemplate redisTemplate;
     @Resource
     private UserWorkDao userWorkDao;
-@Resource
-private JwtUtil jwtUtil;
+    @Resource
+    private JwtUtil jwtUtil;
 
     private String key = "";
 
     @Override
     public WebResponse login(Map params) {
+        String password = DigestUtils.md5DigestAsHex(params.get("password").toString().getBytes());
+        params.put("password",password);
         if (params.isEmpty()) {
             return new WebResponse("999999", "账号或密码不能为空！！", "账号或密码不能为空！");
         }
+//emailcode:616164124@qq.com
+        String verify = (String) redisTemplate.opsForValue().get("emailcode:" + params.get("username"));
         int i = userWorkDao.countAdmin(params);
-        if (i == 1) {
+        if (i == 1 &&  params.get("verify").equals(verify)) {
 //         todo   查看基础信息放入params中
             String token = jwtUtil.JWTBuild(params);
-            return new WebResponse("000000","登录成功",token);
-        }else {
-            return new WebResponse("999999","账号密码错误","");
+            return new WebResponse("000000", "登录成功", token);
+        } else {
+            return new WebResponse("999999", "账号密码错误", "");
         }
     }
 

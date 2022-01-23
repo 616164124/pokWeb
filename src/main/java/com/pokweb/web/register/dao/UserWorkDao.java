@@ -16,10 +16,12 @@ public interface UserWorkDao  {
     UserWork selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKeySelective(UserWork record);
-    int selectByUserName(@Param("user_name") String user_name);
+    int selectByUserName(@Param("username") String username);
     int updateByPrimaryKey(UserWork record);
 
     int insetAdmin(Map<String,String> params);
 
     int countAdmin(Map<String, String> params);
+
+
 }

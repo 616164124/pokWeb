@@ -31,8 +31,8 @@
 
     <select id="selectByUserName" parameterType="java.lang.String" resultType="java.lang.Integer">
         select count(1)
-        from user_work
-        where user_name = #{user_name}
+        from admin
+        where username = #{username}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         delete

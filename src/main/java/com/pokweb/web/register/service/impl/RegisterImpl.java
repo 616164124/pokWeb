@@ -7,6 +7,7 @@ import com.pokweb.web.register.dao.UserWorkDao;
 import com.pokweb.web.register.service.RegisterService;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
 import java.util.Map;
@@ -56,9 +57,11 @@ public class RegisterImpl implements RegisterService {
             return WebResponse.error("验证码过期","");
         }
         if (params.get("yzm").equals(usernameCode)) {
-            int i = userWorkDao.countAdmin(params);
+            int i = userWorkDao.selectByUserName(params.get("username"));
             if (i < 1) {
-                 userWorkDao.insetAdmin(params);
+                String password = DigestUtils.md5DigestAsHex(params.get("password").getBytes());
+                params.put("password",password);
+                userWorkDao.insetAdmin(params);
                 return WebResponse.ok(i);
             }else {
                 return WebResponse.error("用户名已被注册","");

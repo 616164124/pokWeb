@@ -1,6 +1,8 @@
 package com.pokweb.common.utils;
 
 
+import org.junit.Test;
+
 import java.util.Random;
 import java.util.UUID;
 
@@ -43,7 +45,8 @@ public class RandomStrUtil {
         return sb.toString();
     }
 
-    public static void main(String[] args) {
-
+    @Test
+    public void test(){
+        System.out.println(getStr(6));
     }
 }

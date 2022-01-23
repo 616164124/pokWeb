@@ -88,8 +88,9 @@ public class RegisterController {
     }
 
     @RequestMapping(value = "register", method = RequestMethod.POST)
-    public WebResponse registerTemporary(@RequestBody Map<String, String> params) {
-        WebResponse webResponse = registerService.register(params);
+    public WebResponse registerTemporary(@RequestBody Map<String, Object> params) {
+        Map<String , String>   params1=(Map<String, String>)params.get("data");
+        WebResponse webResponse = registerService.register(params1);
         return webResponse;
     }
 
@@ -104,7 +105,7 @@ public class RegisterController {
         params.forEach((k, v) -> {
             log.info("params==> k={} v={}", k, v);
         });
-
+        params = (Map) params.get("data");
         String s = RandomStrUtil.getStr(6).toUpperCase();
 //        redis保存5分钟 username  s
         boolean flag = registerService.saveRedisFor5(params.get("username").toString(), s);
