@@ -1,18 +1,24 @@
 package com.pokweb.demo2.controller;
 
+import com.google.gson.JsonObject;
 import com.pokweb.common.response.R;
 
 import com.pokweb.common.response.WebResponse;
 import com.pokweb.common.utils.RsaUtils;
 import com.pokweb.demo2.service.DemoService;
+import com.pokweb.demo2.service.impl.DemoServiceImpl2;
+import com.sun.istack.internal.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.UUID;
 
@@ -20,15 +26,14 @@ import java.util.UUID;
 @RequestMapping("demo2")
 public class DemoController {
     private static final Logger logger = LoggerFactory.getLogger(DemoController.class);
-
     @Resource
-    public DemoService demoService;
+    private DemoService demoService;
 
-    @Value("${public_key}")
-    private String Public_key;
-
-    @Value("${private_key}")
-    private String Private_key;
+//    @Value("${public_key}")
+//    private String Public_key;
+//
+//    @Value("${private_key}")
+//    private String Private_key;
 
     @Resource
     private JavaMailSenderImpl javaMailSender;
@@ -40,15 +45,6 @@ public class DemoController {
         });
         logger.info("1234");
 //        R demo = demoService.getDemo();
-        return R.ok(200,params);
-    }
-
-    @PostMapping("getdemo2")
-    public WebResponse getDemo2(@RequestBody Map<String, String> params) {
-        params.forEach((k, v) -> {
-            System.out.println("k=" + k + "\tv=" + v);
-        });
-
         try {
             Map<String, Object> map = RsaUtils.initKey();
             String publicKey = RsaUtils.getPublicKey(map);
@@ -62,6 +58,23 @@ public class DemoController {
             System.out.println("解密后：" + decryptData);
             System.out.println("============");
 
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return R.ok();
+    }
+
+    @PostMapping("getdemo2")
+    public WebResponse getDemo2(@RequestBody Map<String, String> params) {
+        params.forEach((k, v) -> {
+            System.out.println("k=" + k + "\tv=" + v);
+        });
+
+        try {
+            R demo = demoService.getDemo();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -71,15 +84,22 @@ public class DemoController {
 
     @PostMapping("email")
     public String test01() {
-        String code = UUID.randomUUID().toString().split("-")[1];
+        String s = UUID.randomUUID().toString().split("-")[1];
         SimpleMailMessage message = new SimpleMailMessage();
         //邮件设置
         message.setSubject("邮件主题");
-        message.setText("验证码：" + code);
+        message.setText("验证码：" + s);
         message.setTo("616164124@qq.com");
         message.setFrom("616164124@qq.com");
         javaMailSender.send(message);
         return "简单邮件发送成功！";
     }
+
+    @PostMapping("sendMq")
+    public void sendMq(){
+        demoService.send("hhhh");
+
+    }
+
 
 }

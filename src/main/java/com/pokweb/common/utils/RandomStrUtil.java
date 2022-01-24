@@ -1,7 +1,7 @@
 package com.pokweb.common.utils;
 
 
-import org.junit.Test;
+import org.testng.annotations.Test;
 
 import java.util.Random;
 import java.util.UUID;

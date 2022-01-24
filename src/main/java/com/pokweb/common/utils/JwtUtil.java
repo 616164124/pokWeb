@@ -19,7 +19,8 @@ import java.util.Map;
 @Component
 public class JwtUtil {
     //key最好为40位
-    private static final String JWT_WEB_KEY = "yDwCNGrD6boGnBAHsjT2Ir8DdMjFdefLTES3RNVnQdLVUK2o2Ehg";
+    @Value("${JWT_WEB_KEY}")
+    public String JWT_WEB_KEY;
     private static final String JWT_THRID_KEY="MTExMTIxZmFkc3dhZGR2";
     /**
      * 生成jwt 用HS256加密

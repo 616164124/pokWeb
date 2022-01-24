@@ -39,7 +39,7 @@ public class RegisterController {
     private String password;
 
     /**
-     * 学生不能注册为正式用户
+     *
      *
      * @param params
      * @return

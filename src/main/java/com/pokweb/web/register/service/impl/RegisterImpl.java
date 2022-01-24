@@ -7,11 +7,15 @@ import com.pokweb.web.register.dao.UserWorkDao;
 import com.pokweb.web.register.service.RegisterService;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -50,6 +54,7 @@ public class RegisterImpl implements RegisterService {
 
     @Override
     public WebResponse register(Map<String, String> params) {
+
         String usernameCode = null;
         try {
             usernameCode = redisTemplate.opsForValue().get(EMAIL_CODE + params.get("username")).toString();

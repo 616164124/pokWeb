@@ -33,7 +33,7 @@ public class R extends HashMap<String, Object> {
         R r = new R();
         r.put("code", code);
         r.put("msg", msg);
-        r.put("time", LocalDateTime.now());
+        r.put("time", LocalDateTime.now().toString());
         return r;
     }
 
@@ -45,7 +45,7 @@ public class R extends HashMap<String, Object> {
     public static R ok(String msg) {
         R r = new R();
         r.put("msg", msg);
-        r.put("time", LocalDateTime.now());
+        r.put("time", LocalDateTime.now().toString());
         return r;
     }
 
@@ -54,7 +54,7 @@ public class R extends HashMap<String, Object> {
         R r = new R();
         r.put("code", code);
         r.putResult(result);
-        r.put("time", LocalDateTime.now());
+        r.put("time", LocalDateTime.now().toString());
         return r;
     }
 
