@@ -102,4 +102,9 @@ public class DemoController {
     }
 
 
+    @PostMapping("setDemo")
+    public void setDemo(){
+        demoService.setDemo();
+    }
+
 }

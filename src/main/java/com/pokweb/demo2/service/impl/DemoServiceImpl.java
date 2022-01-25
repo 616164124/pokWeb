@@ -5,15 +5,17 @@ import com.pokweb.common.response.R;
 import com.pokweb.common.utils.mq.RibbitMqUtil;
 import com.pokweb.demo2.dao.DemoDao;
 import com.pokweb.demo2.service.DemoService;
-import org.springframework.amqp.AmqpException;
+
+
 import org.springframework.amqp.core.AmqpTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.Map;
+import java.util.UUID;
 
 @Service
 public class DemoServiceImpl implements DemoService {
@@ -52,17 +54,15 @@ public class DemoServiceImpl implements DemoService {
 
     @Override
     public R setDemo() {
-        demoDao.setDemo();
+//        demoDao.setDemo();
         int i = 1 / 0;
         return R.ok();
     }
 
     @Override
     public void send(String msg) {
-        for (int i = 0; true; i++) {
+        for (int i = 0; i<10; i++) {
             amqpTemplate.convertAndSend("hello", msg + "\t" + new Date().getTime());
-
-
         }
     }
 

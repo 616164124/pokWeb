@@ -17,3 +17,6 @@ spring:
     listener:
       direct:
         acknowledge-mode: manual  #手动
+  elasticsearch:
+    rest:
+      uris: localhost

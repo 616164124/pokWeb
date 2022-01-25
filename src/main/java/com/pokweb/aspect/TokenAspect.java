@@ -8,13 +8,12 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
-import java.util.Map;
 
 
 @Aspect
 @Component
 public class TokenAspect {
-//切点（com.pokweb.web）下的内容
+    //切点（com.pokweb.web）下的内容
     @Pointcut("execution(public * com.pokweb.web.*.controller.*.*(..))")
     public void doOperation() {
     }
