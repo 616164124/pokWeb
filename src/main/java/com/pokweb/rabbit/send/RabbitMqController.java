@@ -1,5 +1,7 @@
 package com.pokweb.rabbit.send;
 
+import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -8,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.UUID;
-
+@Slf4j
 @RestController
 public class RabbitMqController {
     @Resource
@@ -25,8 +27,9 @@ public class RabbitMqController {
 
     @PostMapping("Exchange_PublishSubscribe")
     public void send2() {
-        CorrelationData correlationData = new CorrelationData(UUID.randomUUID().toString());
-        rabbitTemplate.convertAndSend("Exchange_PublishSubscribe", "", "\t"+UUID.randomUUID().toString());
+        String s = UUID.randomUUID().toString();
+        log.info("Exchange_PublishSubscribe==>send==>"+s);
+        rabbitTemplate.convertAndSend("Exchange_PublishSubscribe", "", "\t"+s);
     }
 
 }
