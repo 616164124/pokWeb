@@ -47,13 +47,15 @@ public class DemoServiceImpl implements DemoService {
     public R getDemo() {
 
         Map<String, String> demo = demoDao.getDemo();
-//        setDemo();
+        demoDao.setDemo();
+        setDemoException();
+
 
         return R.ok().putResult(demo);
     }
 
     @Override
-    public R setDemo() {
+    public R setDemoException() {
 //        demoDao.setDemo();
         int i = 1 / 0;
         return R.ok();
@@ -64,6 +66,12 @@ public class DemoServiceImpl implements DemoService {
         for (int i = 0; i<10; i++) {
             amqpTemplate.convertAndSend("hello", msg + "\t" + new Date().getTime());
         }
+    }
+
+    @Override
+    public void getDemo1(String str, String str1, String... str3) {
+
+        return;
     }
 
     public static void main(String[] args) {

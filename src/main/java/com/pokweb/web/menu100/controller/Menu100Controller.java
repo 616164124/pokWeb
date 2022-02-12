@@ -14,9 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class Menu100Controller {
     private static final Logger logger = LoggerFactory.getLogger(Menu100Controller.class);
 
-    @RequestMapping(value = "get",method = RequestMethod.GET)
-    public WebResponse getMenu100(){
-   logger.info("menu100/get");
+    @RequestMapping(value = "get", method = RequestMethod.GET)
+    public WebResponse getMenu100() {
+        logger.info("menu100/get");
+        logger.info("fjls==>{}","00000");
         return null;
     }
 

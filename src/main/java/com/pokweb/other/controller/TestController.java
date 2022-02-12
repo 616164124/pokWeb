@@ -15,7 +15,7 @@ public class TestController {
 
     @RequestMapping(value = "/test01",method = RequestMethod.GET)
     public String test01(Model model){
-        logger.debug("sfsf  {}","tttt");
+        logger.debug("sfsf  {}","t2t1tt");
         Map<String, String> params= new HashMap<>();
         params.put("hello","324");
         model.addAttribute("result",params);

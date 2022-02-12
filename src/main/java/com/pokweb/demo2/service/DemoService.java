@@ -7,6 +7,7 @@ public interface DemoService {
 
     R getDemo();
 
-    R setDemo();
+    R setDemoException();
     void send(String msg);
+    void getDemo1(String str, String str1, String... str3);
 }

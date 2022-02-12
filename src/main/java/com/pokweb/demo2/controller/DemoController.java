@@ -1,18 +1,13 @@
 package com.pokweb.demo2.controller;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.pokweb.common.response.R;
 
 import com.pokweb.common.response.WebResponse;
 import com.pokweb.common.utils.RsaUtils;
 import com.pokweb.demo2.service.DemoService;
-import com.pokweb.demo2.service.impl.DemoServiceImpl2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.UUID;
 
@@ -36,6 +30,7 @@ public class DemoController {
 //
 //    @Value("${private_key}")
 //    private String Private_key;
+
 
     @Resource
     private JavaMailSenderImpl javaMailSender;
@@ -97,6 +92,9 @@ public class DemoController {
         return "简单邮件发送成功！";
     }
 
+    /**
+     * 发送rabbitmq
+     */
     @PostMapping("sendMq")
     public void sendMq() {
         demoService.send("hhhh");
@@ -106,27 +104,36 @@ public class DemoController {
 
     @PostMapping("setDemo")
     public void setDemo() {
-        demoService.setDemo();
+        demoService.setDemoException();
     }
 
     @GetMapping("setJson1")
     public Object setJson(HttpServletRequest httpServletRequest) {
 
         HttpSession session = httpServletRequest.getSession();
-        logger.info("session id=>>{}",session.getId());
+        logger.info("session id=>>{}", session.getId());
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("name", "String");
 
         return jsonObject.toString();
     }
+
     @GetMapping("setJson")
     public Object getJson(HttpServletRequest httpServletRequest) {
 
         HttpSession session = httpServletRequest.getSession();
-        logger.info("session id=>>{}",session.getId());
+        logger.info("session id=>>{}", session.getId());
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("name", "String");
         return jsonObject.toString();
+    }
+
+
+    @GetMapping("getAdmin")
+    public Object getAdmin() {
+
+
+        return null;
     }
 
 }
