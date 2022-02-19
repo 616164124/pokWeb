@@ -1,5 +1,6 @@
 
 window.onload=function(){
+    onChangeCode()
     document.onkeydown=function(ev){
         var event=ev ||event
         //回车键触发
@@ -9,12 +10,18 @@ window.onload=function(){
     }
 }
 
+function onChangeCode(){
+    var img = document.getElementById("code");
+    var date = new Date().getTime();
+    img.src = "/validate/getCaptchaImg?"+date;
+}
 
 //登录
 function dl(){
     var json = {}
-    json.username=$("#username").val();
-    json.password=$("#password").val();
+    json.username=$("#username").val().trim();
+    json.password=$("#password").val().trim();
+    json.code = $("#code").val().trim();
     json.token="login";
     $.ajax({
             url: "/pokweb/dologin?v="+new Date().getTime(),
@@ -24,7 +31,7 @@ function dl(){
             data: JSON.stringify(json),
             success: function (data) {
                 if(data.resultCode=="000000"){
-                    sessionStorage.setItem("token",data.resultObj)
+                    sessionStorage.setItem("_token",data.resultObj)
                     window.location.href="../login/home/home_main.html"
                 }else {
                     alert(data.resultMsg);

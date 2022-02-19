@@ -1,13 +1,12 @@
 package com.pokweb.common.response;
 
 
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  * resultCode 为999999时表示该消息不必展示给用户看
- *  为888888时表示resultMsg需要展示给用户看的错误信息
+ * 为888888时表示resultMsg需要展示给用户看的错误信息
  * resultMsg为错误消息
  * 返回信息的统一数据形式
  */
@@ -89,6 +88,21 @@ public class WebResponse implements Serializable {
         return webResponse;
     }
 
+    /**
+     * @param code 错误代码
+     * @param msg  错误信息
+     * @param obj  错误数据
+     * @return
+     */
+    public static WebResponse error(String code, String msg, Object obj) {
+        WebResponse webResponse = new WebResponse();
+        webResponse.setResultCode(code);
+        webResponse.setResultMsg(msg);
+        webResponse.setResultObj(obj);
+        webResponse.setTime(LocalDateTime.now().toString());
+        return webResponse;
+    }
+
 
     public WebResponse(Object ret_obj) {
         this.setResultObj(ret_obj);
@@ -117,7 +131,6 @@ public class WebResponse implements Serializable {
     public void setResultObj(Object resultObj) {
         this.resultObj = resultObj;
     }
-
 
 
     public Object getIdentifier() {

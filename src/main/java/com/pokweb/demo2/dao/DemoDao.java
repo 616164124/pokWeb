@@ -9,4 +9,6 @@ public interface DemoDao {
 
     Map<String,String> getDemo();
     void setDemo();
+//    void insert();
+    void insertorupdate(Map<String, String> paramsMap);
 }

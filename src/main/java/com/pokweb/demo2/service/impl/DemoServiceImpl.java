@@ -74,6 +74,11 @@ public class DemoServiceImpl implements DemoService {
         return;
     }
 
+    @Override
+    public void insertorupdate(Map<String, String> paramsMap) {
+        demoDao.insertorupdate(paramsMap);
+    }
+
     public static void main(String[] args) {
 
         System.out.println("json字符串转java代码");

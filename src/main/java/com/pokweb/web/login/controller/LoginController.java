@@ -1,12 +1,15 @@
 package com.pokweb.web.login.controller;
 
+import com.google.gson.Gson;
 import com.pokweb.common.response.WebResponse;
+import com.pokweb.web.login.bean.LoginBean;
 import com.pokweb.web.login.service.LoginService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 @RestController
@@ -39,9 +42,9 @@ public class LoginController {
     }
 
     @RequestMapping(value = "dologin", method = RequestMethod.POST)
-    public WebResponse doLoginIn(@RequestBody Map<String, Object> params) {
+    public WebResponse doLoginIn(@RequestBody Map<String, Object> params , HttpServletRequest request) {
         logger.info("进入loginIn方法的参数{}",params);
-
+        params.put("CODE", request.getSession().getAttribute("CODE"));
         return loginService.login(params);
     }
 
@@ -53,16 +56,6 @@ public class LoginController {
         return menu;
     }
 
-    /**
-     * 获取验证码
-     * @param params
-     * @return
-     */
-    @RequestMapping(value = "verification",method = RequestMethod.GET)
-    public WebResponse getVerifycode(Map<String, Object> params){
-//        loginService.getVerifcode()
-        return WebResponse.ok();
-    }
     /**
      * 单独一个接口来验证token是否有效
      * 验证token是否有效

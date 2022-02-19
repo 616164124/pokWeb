@@ -36,21 +36,26 @@ public class LoginImpl implements LoginService {
 
     @Override
     public WebResponse login(Map params) {
+
         String password = DigestUtils.md5DigestAsHex(params.get("password").toString().getBytes());
-        params.put("password",password);
+        params.put("password", password);
         if (params.isEmpty()) {
             return new WebResponse("999999", "账号或密码不能为空！！", "账号或密码不能为空！");
         }
+        if (!params.get("code").toString().equals(params.get("CODE").toString()) ) {
+            return new WebResponse("999999", "验证码输入错误", "验证码输入错误");
+        }
 //emailcode:616164124@qq.com
-        String verify = (String) redisTemplate.opsForValue().get("emailcode:" + params.get("username"));
+//        String verify = (String) redisTemplate.opsForValue().get("emailcode:" + params.get("username"));
         int i = userWorkDao.countAdmin(params);
-        if (i == 1 &&  params.get("verify").equals(verify)) {
+        if (i == 1) {
 //         todo   查看基础信息放入params中
             String token = jwtUtil.JWTBuild(params);
             return new WebResponse("000000", "登录成功", token);
         } else {
             return new WebResponse("999999", "账号密码错误", "");
         }
+
     }
 
     @Override

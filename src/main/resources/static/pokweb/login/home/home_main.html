@@ -27,20 +27,23 @@
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">成绩</a></li>
-                        <li><a href="#">课程安排</a></li>
-                        <li><a href="#">请假</a></li>
+                        <li><a onclick="changeIframe('score')">成绩</a></li>
+                        <li><a onclick="changeIframe('schedule')" >课程安排</a></li>
+                        <li><a  onclick="changeIframe('leave')" >请假</a></li>
+<!--                        <li><a href="../../leave/leave.html">请假</a></li>-->
                     </ul>
                 </li>
-                <li class="active"><a href="#">图书馆</a></li>
+                <li><a href="#">图书馆</a></li>
                 <li><a href="#">饭卡充值</a></li>
                 <li><a href="#">社团安排</a></li>
                 <li><a href="#">处罚管理</a></li>
+                <li><a href="#">论坛</a></li>
             </ul>
         </div>
     </div>
 </nav>
-<iframe  width="99%" height="100%" src=""></iframe>
+<div id="div_iframe">
+</div>
 </body>
 <script src="index.js"></script>
 </html>

@@ -8,13 +8,21 @@ import com.pokweb.common.utils.RsaUtils;
 import com.pokweb.demo2.service.DemoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -24,7 +32,6 @@ public class DemoController {
     private static final Logger logger = LoggerFactory.getLogger(DemoController.class);
     @Resource
     private DemoService demoService;
-
 //    @Value("${public_key}")
 //    private String Public_key;
 //
@@ -128,6 +135,20 @@ public class DemoController {
         return jsonObject.toString();
     }
 
+    /**
+     * insert or update
+     * 如果insert 失败 则执行 update
+     */
+    @PostMapping("insertorupdate")
+    public void insertorupdate() {
+
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("id", "1");
+        hashMap.put("username", "uiere");
+        hashMap.put("password", "fsj");
+        demoService.insertorupdate(hashMap);
+    }
+
 
     @GetMapping("getAdmin")
     public Object getAdmin() {
@@ -135,5 +156,5 @@ public class DemoController {
 
         return null;
     }
-
 }
+

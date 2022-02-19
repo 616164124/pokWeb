@@ -1,9 +1,11 @@
 package com.pokweb.common.base;
 
+import org.apache.ibatis.javassist.SerialVersionUID;
+
 import java.io.Serializable;
 
 public class User implements Serializable {
-
+    private final static long SerialVersionUID = 100L;
     private String Department;
     private String major;
     private String identity;

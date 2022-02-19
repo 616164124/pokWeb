@@ -1,6 +1,10 @@
 window.onload = function () {
     var json = {}
-    json.token = sessionStorage.getItem("token");
+    json.token = sessionStorage.getItem("_token");
+    if (json.token==null|| json.token==""){
+        window.location.href="../index.html"
+        return;
+    }
     $.ajax({
         url: "/pokweb/main",
         type: "post",
@@ -11,6 +15,13 @@ window.onload = function () {
         success: function (data) {
         }
     });
+}
+
+function changeIframe(value){
+    console.log("changeIframe===>"+value)
+
+    // <iframe id="iframe"  style="width: 100%;height: 100%" src="../../new/new.html"></iframe>
+
 
 
 }
