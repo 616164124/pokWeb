@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
@@ -152,7 +153,8 @@ public class DemoController {
 
     @GetMapping("getAdmin")
     public Object getAdmin() {
-
+        RestTemplate restTemplate = new RestTemplate();
+//        restTemplate.postForObject()
 
         return null;
     }
