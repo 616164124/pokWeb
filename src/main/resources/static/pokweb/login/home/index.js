@@ -19,9 +19,12 @@ window.onload = function () {
 
 function changeIframe(value){
     console.log("changeIframe===>"+value)
+    if(value==''){
+        <iframe id="iframe"  style="width: 100%;height: 100%" src="../../new/new.html"></iframe>
 
-    // <iframe id="iframe"  style="width: 100%;height: 100%" src="../../new/new.html"></iframe>
+    }
 
+    //
 
 
 }

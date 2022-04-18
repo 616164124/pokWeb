@@ -13,7 +13,7 @@ public class HomeController {
 
     @RequestMapping(value = "main",method = RequestMethod.POST)
     public void getMain(@RequestBody Map<String,String> params){
-        System.out.println("getmain");
+//        System.out.println("getmain");
 
     }
 

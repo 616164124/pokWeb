@@ -3,6 +3,7 @@ package com.pokweb.rabbit.revicer_workQueue;
 
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.core.ExchangeTypes;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.*;
 import org.springframework.stereotype.Component;
