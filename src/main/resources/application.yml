@@ -9,15 +9,9 @@ spring:
             class: javax.net.ssl.SSLSocketFactory
     username: 616164124@qq.com
     password: xanlkaeqeckobefh
-  rabbitmq:
-    addresses: localhost
-    port: 5672
-    username: hua
-    password: hua
-    listener:
-      direct:
-        acknowledge-mode: manual  #手动
   elasticsearch:
     rest:
       uris: localhost
+
+
 

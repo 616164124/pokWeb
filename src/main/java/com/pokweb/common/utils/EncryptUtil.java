@@ -12,7 +12,7 @@ import java.security.MessageDigest;
 import java.security.SecureRandom;
 
 /**
- * 加密算法工具类
+ * 加密算法工具类(登录账号密码推荐使用PBKDF2加密)
  */
 public class EncryptUtil {
     public static final String MD5 = "MD5";

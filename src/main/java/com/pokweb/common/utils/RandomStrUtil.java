@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 
 import java.util.Random;
 import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class RandomStrUtil {
 
@@ -31,16 +32,15 @@ public class RandomStrUtil {
     }
 
     /**
-     * 获取指定长度的随机数
+     * 获取指定长度的伪随机数(int)
      *
      * @param nums
      * @return
      */
     public static String getNum(int nums) {
         StringBuffer sb = new StringBuffer();
-        Random random = new Random();
         for (int i = 0; i < nums; i++) {
-            sb.append(random.nextInt(10) + "");
+            sb.append(ThreadLocalRandom.current().nextInt(0,9));
         }
         return sb.toString();
     }
@@ -48,5 +48,7 @@ public class RandomStrUtil {
     @Test
     public void test(){
         System.out.println(getStr(6));
+        ThreadLocalRandom current = ThreadLocalRandom.current();
+        System.out.println(getNum(6)+"------");
     }
 }

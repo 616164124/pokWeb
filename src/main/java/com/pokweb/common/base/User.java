@@ -1,6 +1,5 @@
 package com.pokweb.common.base;
 
-import org.apache.ibatis.javassist.SerialVersionUID;
 
 import java.io.Serializable;
 

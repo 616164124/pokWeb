@@ -6,8 +6,6 @@ import com.pokweb.common.base.User;
 import java.util.Map;
 
 public class MapToUser {
-
-
     public User toUser(Map<String, String> map){
         User user = new User();
         user.setDepartment(map.get("Department").toString());
