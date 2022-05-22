@@ -5,8 +5,8 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * resultCode 为999999时表示该消息不必展示给用户看
- * 为888888时表示resultMsg需要展示给用户看的错误信息
+ * resultCode 为500时表示该消息不必展示给用户看
+ * 为502时表示resultMsg需要展示给用户看的错误信息
  * resultMsg为错误消息
  * 返回信息的统一数据形式
  */
@@ -16,7 +16,11 @@ public class WebResponse implements Serializable {
     private String resultMsg = "";
     private Object resultObj = null;
     private String time = LocalDateTime.now().toString();
-    private Object identifier = "";//预留位置
+    private Object placeholder = "";//预留位置
+
+    public void setPlaceholder(Object placeholder) {
+        this.placeholder = placeholder;
+    }
 
     public WebResponse() {
     }
@@ -37,11 +41,11 @@ public class WebResponse implements Serializable {
      */
     public static WebResponse ok(Object obj) {
         WebResponse webResponse = new WebResponse();
-        webResponse.setResultCode("000000");
+        webResponse.setResultCode("200");
         webResponse.setResultMsg("success");
         webResponse.setResultObj(obj);
         webResponse.setTime(LocalDateTime.now().toString());
-        webResponse.setIdentifier("");
+
         return webResponse;
     }
 
@@ -52,7 +56,7 @@ public class WebResponse implements Serializable {
      */
     public static WebResponse ok() {
         WebResponse webResponse = new WebResponse();
-        webResponse.setResultCode("000000");
+        webResponse.setResultCode("200");
         webResponse.setResultMsg("success");
         webResponse.setTime(LocalDateTime.now().toString());
         return webResponse;
@@ -68,7 +72,7 @@ public class WebResponse implements Serializable {
      */
     public static WebResponse error(String msg, Object obj) {
         WebResponse webResponse = new WebResponse();
-        webResponse.setResultCode("888888");
+        webResponse.setResultCode("500");
         webResponse.setResultMsg(msg);
         webResponse.setResultObj(obj);
         webResponse.setTime(LocalDateTime.now().toString());
@@ -82,8 +86,8 @@ public class WebResponse implements Serializable {
      */
     public static WebResponse error() {
         WebResponse webResponse = new WebResponse();
-        webResponse.setResultCode("999999");
-        webResponse.setResultMsg("未知异常，请联系管理员");
+        webResponse.setResultCode("500");
+        webResponse.setResultMsg("fail");
         webResponse.setTime(LocalDateTime.now().toString());
         return webResponse;
     }
@@ -132,13 +136,12 @@ public class WebResponse implements Serializable {
         this.resultObj = resultObj;
     }
 
-
-    public Object getIdentifier() {
-        return identifier;
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
-    public void setIdentifier(Object identifier) {
-        this.identifier = identifier;
+    public Object getPlaceholder() {
+        return placeholder;
     }
 
     public String getTime() {

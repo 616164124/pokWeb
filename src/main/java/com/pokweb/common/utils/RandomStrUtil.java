@@ -1,7 +1,6 @@
 package com.pokweb.common.utils;
 
 
-import org.testng.annotations.Test;
 
 import java.util.Random;
 import java.util.UUID;
@@ -45,7 +44,6 @@ public class RandomStrUtil {
         return sb.toString();
     }
 
-    @Test
     public void test(){
         System.out.println(getStr(6));
         ThreadLocalRandom current = ThreadLocalRandom.current();

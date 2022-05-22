@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pokweb.web.thread.dao.mapper.ThreadDao">
+
+    <select id="getDemo" resultType="java.util.Map">
+        select *
+        from admin
+        where pokid = 1
+    </select>
+
+    <update id="setDemo">
+        update admin
+        set username='99'
+        where pokid = '9'
+    </update>
+
+    <insert id="insertorupdate">
+        insert
+        admin (
+        pokid,
+        username,
+        password
+        )values
+<!--        <foreach collection="map" index="index" separator=",">-->
+            (
+            #{id},
+            #{username},
+            #{password}
+            )
+<!--        </foreach>-->
+        on duplicate key update
+        username=values(username),
+        password = values(password)
+
+
+    </insert>
+
+
+
+
+</mapper>

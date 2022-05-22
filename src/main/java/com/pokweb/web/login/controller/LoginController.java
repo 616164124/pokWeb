@@ -53,6 +53,7 @@ public class LoginController {
     public WebResponse getMenu(@RequestBody Map<String, Object> params) {
         Map data = (Map) params.get("data");
         String id = data.get("id").toString();
+
         WebResponse  menu = loginService.getMenu(id);
         return menu;
     }

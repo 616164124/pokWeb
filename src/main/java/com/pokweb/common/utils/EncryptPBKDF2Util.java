@@ -1,6 +1,6 @@
 package com.pokweb.common.utils;
 
-import org.testng.annotations.Test;
+
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -154,8 +154,20 @@ public class EncryptPBKDF2Util {
         return EncryptPBKDF2Util.authenticate(originalPassword, hash, salt);
     }
 
-    @Test
+
     public static void test() throws NoSuchAlgorithmException, InvalidKeySpecException {
+        long l = System.currentTimeMillis();
+        //根据密码生成密码存到数据库  s2长度为
+        String s2 = generateStorngPasswordHash("000000");
+        System.out.println(s2);
+        System.out.println("====>" + s2.length());
+        //根据数据库中的密码与明文进行比对
+        boolean b = validatePassword("000000", s2);
+        System.out.println(b);
+        System.out.println(System.currentTimeMillis() - l);
+    }
+
+    public static void main(String[] args) throws NoSuchAlgorithmException, InvalidKeySpecException {
         long l = System.currentTimeMillis();
         //根据密码生成密码存到数据库  s2长度为
         String s2 = generateStorngPasswordHash("000000");
