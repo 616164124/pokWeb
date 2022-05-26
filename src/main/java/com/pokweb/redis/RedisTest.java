@@ -70,8 +70,6 @@ public class RedisTest {
 //        jdbcTemplate.execute("insert into admin (pokid,username,password) values ('3','yy','cc')");
 
         RLock lock = redisson.getLock("123");
-
-
         try {
             lock.lock();
         } finally {
@@ -97,7 +95,7 @@ public class RedisTest {
         Object username = redisTemplate.opsForValue().get(demo.get("username"));
         Map<String, String> map = gson.fromJson(username.toString(), Map.class);
         log.info(map.toString());
-        return WebResponse.ok(map.get("pokid"));
+        return WebResponse.ok(map.get("username"));
     }
 
     /**
@@ -109,9 +107,12 @@ public class RedisTest {
         redisTemplate.opsForValue().setBit("887:202205", 3, true);//20220503 签到
         redisTemplate.opsForValue().setBit("887:202205", 10, true);//20220510 签到
         redisTemplate.opsForValue().setBit("887:202205", 20, true);//20220520 签到
+
         //30为30天内
         BitFieldSubCommands command = BitFieldSubCommands.create()
                 .get(BitFieldSubCommands.BitFieldType.unsigned(30)).valueAt(1);
+
+
         //用户id为887的在202205签到
         List list = redisTemplate.opsForValue().bitField("887:202205", command);
         String l = Long.toString((Long) list.get(0), 2);
