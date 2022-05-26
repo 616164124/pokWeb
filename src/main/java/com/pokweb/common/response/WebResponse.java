@@ -45,7 +45,6 @@ public class WebResponse implements Serializable {
         webResponse.setResultMsg("success");
         webResponse.setResultObj(obj);
         webResponse.setTime(LocalDateTime.now().toString());
-
         return webResponse;
     }
 
