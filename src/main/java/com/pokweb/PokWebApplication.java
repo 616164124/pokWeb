@@ -12,6 +12,7 @@ public class PokWebApplication {
 
     public static void main(String[] args) {
         ConfigurableApplicationContext run = SpringApplication.run(PokWebApplication.class, args);
+
         System.out.println("启动完成");
     }
 

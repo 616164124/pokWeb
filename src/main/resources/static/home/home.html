@@ -10,6 +10,10 @@
     <el-dialog :visible.sync="visible" title="Hello world">
         <p>Try Element</p>
     </el-dialog>
+    <div>
+        <span>{{ss}}</span>
+        <button @click="onchange">按钮1</button>
+    </div>
 </div>
 </body>
 <script src="../pub/vue.min-2.16.14.js" type="text/javascript" charset="utf-8"></script>
@@ -17,8 +21,21 @@
 <script>
     new Vue({
         el: '#app',
-        data: function() {
-            return { visible: false }
+        data: function () {
+
+            return {
+                visible: false,
+                ss: "hello"
+
+            }
+        },
+        created() {
+            console.log("hello first")
+        },
+        methods: {
+            onchange() {
+                console.log("onchange===>")
+            }
         }
     })
 </script>
