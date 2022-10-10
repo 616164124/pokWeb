@@ -23,7 +23,7 @@ public class ValidateCodeUtil {
     private static Random random = new Random();
     private int width = 165; //验证码的宽
     private int height = 45; //验证码的高
-    private int lineSize = 30; //验证码中夹杂的干扰线数量
+    private int lineSize = 50; //验证码中夹杂的干扰线数量
     private int randomStrNum = 4; //验证码字符个数
 
     private String randomString = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWSYZ";

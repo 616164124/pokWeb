@@ -66,7 +66,9 @@ function zc() {
 
 }
 
+function changeYZM(){
 
+}
 //页面加载时判断传真发送按钮5分钟倒计时是否已到
 // $(document).ready(function () {
 //     var date = new Date();

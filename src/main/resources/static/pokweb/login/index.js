@@ -10,8 +10,9 @@ window.onload=function(){
     }
 }
 
+
 function onChangeCode(){
-    var img = document.getElementById("code");
+    var img = document.getElementById("yzmtp");
     var date = new Date().getTime();
     img.src = "/validate/getCaptchaImg?"+date;
 }
@@ -38,10 +39,6 @@ function dl(){
                 }
             }
         });
-
-
-
-
 }
 
 

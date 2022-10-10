@@ -1,8 +1,6 @@
 package com.pokweb.common.utils;
 
 
-
-import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -39,14 +37,14 @@ public class RandomStrUtil {
     public static String getNum(int nums) {
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < nums; i++) {
-            sb.append(ThreadLocalRandom.current().nextInt(0,9));
+            sb.append(ThreadLocalRandom.current().nextInt(0, 9));
         }
         return sb.toString();
     }
 
-    public void test(){
+    public void test() {
         System.out.println(getStr(6));
         ThreadLocalRandom current = ThreadLocalRandom.current();
-        System.out.println(getNum(6)+"------");
+        System.out.println(getNum(6) + "------");
     }
 }
