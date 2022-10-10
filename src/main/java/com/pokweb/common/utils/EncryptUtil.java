@@ -319,5 +319,14 @@ public class EncryptUtil {
         return new String(Base64.decode(res));
     }
 
+    public String SM2(String res){
 
+        return null;
+    }
+
+    public static void main(String[] args) {
+        EncryptUtil encryptUtil = new EncryptUtil();
+        System.out.println(encryptUtil.MD5("12313"));
+        System.out.println(encryptUtil.SHA1("123123"));
+    }
 }

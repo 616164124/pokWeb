@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
  * 返回信息的统一数据形式
  */
 public class WebResponse implements Serializable {
-    private static final long serialVersionUID = 12385L;
+    private final static long serialVersionUID = 2190790540620614L;
     private String resultCode = "";
     private String resultMsg = "";
     private Object resultObj = null;

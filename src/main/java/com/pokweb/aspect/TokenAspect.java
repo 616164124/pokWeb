@@ -9,7 +9,10 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
 
-
+/**
+ * jwt 使用
+ *
+ */
 @Aspect
 @Component
 public class TokenAspect {

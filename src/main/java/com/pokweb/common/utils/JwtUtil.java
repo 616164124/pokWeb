@@ -21,12 +21,13 @@ public class JwtUtil {
     //key最好为40位
     @Value("${JWT_WEB_KEY}")
     public String JWT_WEB_KEY;
-    private static final String JWT_THRID_KEY="MTExMTIxZmFkc3dhZGR2";
+    private static final String JWT_THRID_KEY = "eyJzdWIiOiJ7aWQ9MTIzMTMxfSIsImlkIjoiMTIzMTMxIiwiZXhwIjoxNjYyNDMyMzkxfQ";
+
     /**
      * 生成jwt 用HS256加密
      */
     public String JWTBuild(Map<String, Object> params) {
-        String jwt = Jwts.builder().setClaims(params).setSubject(params.toString()).setExpiration(new Date(System.currentTimeMillis() + 600000L)).signWith(SignatureAlgorithm.HS256, JWT_WEB_KEY).compact();
+        String jwt = Jwts.builder().setClaims(params).setSubject(params.toString()).setExpiration(new Date(System.currentTimeMillis() + 600000L)).signWith(SignatureAlgorithm.HS256, JWT_THRID_KEY).compact();
         System.out.println(jwt);
         return jwt;
     }
@@ -39,16 +40,16 @@ public class JwtUtil {
     public WebResponse parserJwt(String token) {
         WebResponse webResponse = new WebResponse();
         try {
-            Claims body = Jwts.parser().setSigningKey(JWT_WEB_KEY).parseClaimsJws(token).getBody();
+//            SignatureAlgorithm.RS256
+            Claims body = Jwts.parser().setSigningKey(JWT_THRID_KEY).parseClaimsJws(token).getBody();
             webResponse.setResultCode("000000");
             webResponse.setResultObj(body.getSubject());
         } catch (Exception e) {
             webResponse.setResultCode("999999");
-            webResponse.setResultMsg(e.toString());
+            webResponse.setResultMsg("token错误");
         } finally {
             return webResponse;
         }
-
     }
 
     public static void main(String[] args) {
@@ -56,10 +57,9 @@ public class JwtUtil {
         Map<String, Object> objectMap = new HashMap<>();
         objectMap.put("id", "123131");
         String s = jwtUtil.JWTBuild(objectMap);
-        System.out.println("s="+s);
+        System.out.println("s=" + s);
         WebResponse webResponse = jwtUtil.parserJwt(s);
         System.out.println(webResponse.getResultObj());
-
     }
 
 }
