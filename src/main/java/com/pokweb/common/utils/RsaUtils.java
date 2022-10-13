@@ -1,8 +1,5 @@
 package com.pokweb.common.utils;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.redis.core.script.DigestUtils;
-import org.springframework.stereotype.Component;
 import org.springframework.util.Base64Utils;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
@@ -337,7 +334,7 @@ public class RsaUtils extends Base64Utils {
      */
     public static Map<String, Object> initKey(String public_key,String prive_key) throws Exception {
         KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(KEY_ALGORITHM);
-        keyPairGen.initialize(1024);
+        keyPairGen.initialize(1024*16);
 
         KeyPair keyPair = keyPairGen.generateKeyPair();
 
@@ -415,7 +412,14 @@ public class RsaUtils extends Base64Utils {
             String privateKey = RsaUtils.getPrivateKey(map);
             System.out.println("公钥：" + publicKey);
             System.out.println("私钥：" + privateKey);
-            String data = "再见孙悟空！";
+            String data = "{\n" +
+                    "\"id\":\"12efsdfewg12efsdfewg12efsdfewg12efsdfewg\";\n" +
+                    "\"name\":\"会黑科技和复活甲看\",\n" +
+                    "\"sfz\":\"2231231312412312314213x\";\n" +
+                    "\"mz\":\"汉族\"，\n" +
+                    "\"sjh\":\"12413132134123\",\n" +
+                    "\"dz\":\"会黑科技和复活甲看算法和数据恢复可视化卡生活费静安寺开发和UI阿克苏就返回科技啥黑胡椒咖啡粉爱看就返回发挥科技啊饭卡就返回爱看就返回就好卡交电话费\"\n" +
+                    "}";
             String encryptData = RsaUtils.encryptByPublicKey(data, publicKey);
             System.out.println("加密后：" + encryptData);
             String decryptData = RsaUtils.decryptByPrivateKey(encryptData, privateKey);

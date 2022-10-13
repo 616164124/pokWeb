@@ -326,7 +326,7 @@ public class EncryptUtil {
 
     public static void main(String[] args) {
         EncryptUtil encryptUtil = new EncryptUtil();
-        System.out.println(encryptUtil.MD5("12313"));
+        System.out.println(encryptUtil.MD5("231213"));
         System.out.println(encryptUtil.SHA1("123123"));
     }
 }
