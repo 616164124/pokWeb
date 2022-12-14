@@ -69,4 +69,17 @@ public class User implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "Department='" + Department + '\'' +
+                ", major='" + major + '\'' +
+                ", identity='" + identity + '\'' +
+                ", effect='" + effect + '\'' +
+                ", name='" + name + '\'' +
+                ", phone_sos='" + phone_sos + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

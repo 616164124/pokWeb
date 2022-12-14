@@ -48,7 +48,7 @@ public class DemoServiceImpl implements DemoService {
 
         Map<String, String> demo = demoDao.getDemo();
         demoDao.setDemo();
-        setDemoException();
+//        setDemoException();
 
 
         return R.ok().putResult(demo);

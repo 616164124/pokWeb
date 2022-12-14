@@ -1,5 +1,6 @@
 package com.pokweb.common.utils;
 
+import com.pokweb.common.base.User;
 import com.pokweb.common.response.WebResponse;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -53,16 +54,22 @@ public class JwtUtil {
     public static void main(String[] args) {
         JwtUtil jwtUtil = new JwtUtil();
         Map<String, Object> objectMap = new HashMap<>();
-        objectMap.put("id", "12313hfjkshfkhfuksjfh1");
-        objectMap.put("name", "会黑科技和复活甲看");
-        objectMap.put("sfz", "1231421321423889747326478");
-        objectMap.put("dz", "会黑科技和复活甲看会黑科技和复活甲看会黑科技和复活甲看会黑科技和复活甲看会黑科技和复活甲看会黑科技和复活甲看会黑科技和复活甲看");
-        objectMap.put("sjh", "124213412314213");
-        objectMap.put("mz", "发接口返回好喝哦好好考试");
+        User user = new User();
+        user.setName("ming");
+        user.setIdentity("0");
+        user.setMajor("科技");
+        objectMap.put("user", user);
+//        objectMap.put("id", "12313hfjkshfkhfuksjfh1");
+//        objectMap.put("name", "会黑科技和复活甲看");
+//        objectMap.put("sfz", "1231421321423889747326478");
+//        objectMap.put("dz", "会黑科技和复活甲看会黑科技和复活甲看会黑科技和复活甲看会黑科技和复活甲看会黑科技和复活甲看会黑科技和复活甲看会黑科技和复活甲看");
+//        objectMap.put("sjh", "124213412314213");
+//        objectMap.put("mz", "发接口返回好喝哦好好考试");
         String s = jwtUtil.JWTBuild(objectMap);
-        System.out.println("s=" + s);
+        System.out.println("s=>>" + s);
         WebResponse webResponse = jwtUtil.parserJwt(s);
-        System.out.println(webResponse.getResultObj());
+        Object resultObj = webResponse.getResultObj();
+        System.out.println(resultObj);
     }
 
 }

@@ -2,7 +2,13 @@ package com.pokweb.common.utils.sm2;
 
 
 import com.alibaba.fastjson.JSONObject;
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.SecureRandom;
+import java.security.spec.ECGenParameterSpec;
 import java.util.Base64;
 
 /**
@@ -10,9 +16,9 @@ import java.util.Base64;
  */
 public class JwtToken {
 
-    //2个秘钥不能改成对出现
-    private static final String publicKey = "04bd133a440cd5ebaeeb68c958953a7794134c3992d2c3fd006571c7f1c7b3ebef484595ecd298d6c22fd1c0f84ba7ca8595761c271c959dc1370d7528c55b1ccb";
-    private static final String privateKey = "835b53881c3e391ba430022119bf6b0f7fd7764ec9808d305ea5b620c531363e";
+    //2个秘钥不能改,成对出现
+    private static final String publicKey = "047afdc3d660ddd3d0df2c8f9954b0d2bff7a8628c59ac668c394ae1fda55c6b318f23926d24cbee5324b80f4e9bcbc6483cdb4d4fa466c9a885fb2a60917d6dc1";
+    private static final String privateKey = "94c39bd37682456e4a44e67454c78f4cae63b6316a385fdabe2da69e9a12d963";
 
     public static String sign(String sourceData) {
         String signstr = "";
@@ -85,23 +91,45 @@ public class JwtToken {
     }
 
     public static void main(String[] args) throws Exception {
-
-        JwtToken jwtToken = new JwtToken();
+        long l = System.currentTimeMillis();
         String tks = "{\n" +
                 "\"id\":\"12efsdfewg12efsdfewg12efsdfewg12efsdfewg\";\n" +
-                "\"name\":\"会黑科技和复活甲看\",\n" +
+                "\"name\":\"会黑科技和复活甲看算法和数据恢复可视化卡生活费静安寺开发和UI阿克苏就返回科技啥黑胡椒咖啡粉爱看就返回发挥科技啊饭卡就返回爱看就返回就好卡交电话费\",\n" +
                 "\"sfz\":\"2231231312412312314213x\";\n" +
                 "\"mz\":\"汉族\"，\n" +
                 "\"sjh\":\"12413132134123\",\n" +
                 "\"dz\":\"会黑科技和复活甲看算法和数据恢复可视化卡生活费静安寺开发和UI阿克苏就返回科技啥黑胡椒咖啡粉爱看就返回发挥科技啊饭卡就返回爱看就返回就好卡交电话费\"\n" +
+                "\"dz\":\"会黑科技和复活甲看算法和数据恢复可视化卡生活费静安寺开发和UI阿克苏就返回科技啥黑胡椒咖啡粉爱看就返回发挥科技啊饭卡就返回爱看就返回就好卡交电话费\"\n" +
+                "\"dz\":\"会黑科技和复活甲看算法和数据恢复可视化卡生活费静安寺开发和UI阿克苏就返回科技啥黑胡椒咖啡粉爱看就返回发挥科技啊饭卡就返回爱看就返回就好卡交电话费\"\n" +
+                "\"dz\":\"会黑科技和复活甲看算法和数据恢复可视化卡生活费静安寺开发和UI阿克苏就返回科技啥黑胡椒咖啡粉爱看就返回发挥科技啊饭卡就返回爱看就返回就好卡交电话费\"\n" +
+                "\"dz\":\"会黑科技和复活甲看算法和数据恢复可视化卡生活费静安寺开发和UI阿克苏就返回科技啥黑胡椒咖啡粉爱看就返回发挥科技啊饭卡就返回爱看就返回就好卡交电话费\"\n" +
+                "\"dz\":\"会黑科技和复活甲看算法和数据恢复可视化卡生活费静安寺开发和UI阿克苏就返回科技啥黑胡椒咖啡粉爱看就返回发挥科技啊饭卡就返回爱看就返回就好卡交电话费\"\n" +
+                "\"dz\":\"会黑科技和复活甲看算法和数据恢复可视化卡生活费静安寺开发和UI阿克苏就返回科技啥黑胡椒咖啡粉爱看就返回发挥科技啊饭卡就返回爱看就返回就好卡交电话费\"\n" +
+                "\"dz\":\"会黑科技和复活甲看算法和数据恢复可视化卡生活费静安寺开发和UI阿克苏就返回科技啥黑胡椒咖啡粉爱看就返回发挥科技啊饭卡就返回爱看就返回就好卡交电话费\"\n" +
+                "\"dz\":\"会黑科技和复活甲看算法和数据恢复可视化卡生活费静安寺开发和UI阿克苏就返回科技啥黑胡椒咖啡粉爱看就返回发挥科技啊饭卡就返回爱看就返回就好卡交电话费\"\n" +
+                "\"dz\":\"会黑科技和复活甲看算法和数据恢复可视化卡生活费静安寺开发和UI阿克苏就返回科技啥黑胡椒咖啡粉爱看就返回发挥科技啊饭卡就返回爱看就返回就好卡交电话费\"\n" +
+                "\"dz\":\"会黑科技和复活甲看算法和数据恢复可视化卡生活费静安寺开发和UI阿克苏就返回科技啥黑胡椒咖啡粉爱看就返回发挥科技啊饭卡就返回爱看就返回就好卡交电话费\"\n" +
+                "\"dz\":\"会黑科技和复活甲看算法和数据恢复可视化卡生活费静安寺开发和UI阿克苏就返回科技啥黑胡椒咖啡粉爱看就返回发挥科技啊饭卡就返回爱看就返回就好卡交电话费\"\n" +
+                "\"dz\":\"会黑科技和复活甲看算法和数据恢复可视化卡生活费静安寺开发和UI阿克苏就返回科技啥黑胡椒咖啡粉爱看就返回发挥科技啊饭卡就返回爱看就返回就好卡交电话费\"\n" +
+                "\"dz\":\"会黑科技和复活甲看算法和数据恢复可视化卡生活费静安寺开发和UI阿克苏就返回科技啥黑胡椒咖啡粉爱看就返回发挥科技啊饭卡就返回爱看就返回就好卡交电话费\"\n" +
+                "\"dz\":\"会黑科技和复活甲看算法和数据恢复可视化卡生活费静安寺开发和UI阿克苏就返回科技啥黑胡椒咖啡粉爱看就返回发挥科技啊饭卡就返回爱看就返回就好卡交电话费\"\n" +
+                "\"dz\":\"会黑科技和复活甲看算法和数据恢复可视化卡生活费静安寺开发和UI阿克苏就返回科技啥黑胡椒咖啡粉爱看就返回发挥科技啊饭卡就返回爱看就返回就好卡交电话费\"\n" +
+                "\"dz\":\"会黑科技和复活甲看算法和数据恢复可视化卡生活费静安寺开发和UI阿克苏就返回科技啥黑胡椒咖啡粉爱看就返回发挥科技啊饭卡就返回爱看就返回就好卡交电话费\"\n" +
+                "\"dz\":\"会黑科技和复活甲看算法和数据恢复可视化卡生活费静安寺开发和UI阿克苏就返回科技啥黑胡椒咖啡粉爱看就返回发挥科技啊饭卡就返回爱看就返回就好卡交电话费\"\n" +
+                "\"dz\":\"会黑科技和复活甲看算法和数据恢复可视化卡生活费静安寺开发和UI阿克苏就返回科技啥黑胡椒咖啡粉爱看就返回发挥科技啊饭卡就返回爱看就返回就好卡交电话费\"\n" +
+                "\"dz\":\"会黑科技和复活甲看算法和数据恢复可视化卡生活费静安寺开发和UI阿克苏就返回科技啥黑胡椒咖啡粉爱看就返回发挥科技啊饭卡就返回爱看就返回就好卡交电话费\"\n" +
+                "\"dz\":\"会黑科技和复活甲看算法和数据恢复可视化卡生活费静安寺开发和UI阿克苏就返回科技啥黑胡椒咖啡粉爱看就返回发挥科技啊饭卡就返回爱看就返回就好卡交电话费\"\n" +
+                "\"dz\":\"会黑科技和复活甲看算法和数据恢复可视化卡生活费静安寺开发和UI阿克苏就返回科技啥黑胡椒咖啡粉爱看就返回发挥科技啊饭卡就返回爱看就返回就好卡交电话费\"\n" +
+                "\"dz\":\"会黑科技和复活甲看算法和数据恢复可视化卡生活费静安寺开发和UI阿克苏就返回科技啥黑胡椒咖啡粉爱看就返回发挥科技啊饭卡就返回爱看就返回就好卡交电话费\"\n" +
+
                 "}";
         //加密
-        String sign = jwtToken.generateJwt(tks);
+        String sign = JwtToken.generateJwt(tks);
         System.out.println(sign);
         //解密
-        String s = jwtToken.validataJwt(sign);
+        String s = JwtToken.validataJwt(sign);
         System.out.println(s);
-
+        System.out.println(System.currentTimeMillis()-l);
 
     }
 
