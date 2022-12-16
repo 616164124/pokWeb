@@ -16,7 +16,7 @@ import java.security.SecureRandom;
 
 /**
  * 国密工厂类
- * 
+ *
  */
 @SuppressWarnings(value = { "deprecation", "static-access" })
 public class SM2Factory {
@@ -66,7 +66,7 @@ public class SM2Factory {
 
     /**
      * 初始化方法
-     * 
+     *
      * @return
      */
     public static SM2Factory getInstance() {
@@ -92,7 +92,7 @@ public class SM2Factory {
 
     /**
      * 根据私钥、曲线参数计算Z
-     * 
+     *
      * @param userId
      * @param userKey
      * @return
@@ -131,7 +131,7 @@ public class SM2Factory {
 
     /**
      * 签名相关值计算
-     * 
+     *
      * @param md
      * @param userD
      * @param userKey
@@ -172,7 +172,7 @@ public class SM2Factory {
 
     /**
      * 验签
-     * 
+     *
      * @param md sm3摘要
      * @param userKey 根据公钥decode一个ecpoint对象
      * @param r 没有特殊含义
@@ -193,5 +193,6 @@ public class SM2Factory {
             return;
         }
     }
+
 
 }

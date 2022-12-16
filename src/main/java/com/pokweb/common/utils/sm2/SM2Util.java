@@ -607,10 +607,11 @@ public class SM2Util {
         return bt;
     }
 
+
+
     public static void main(String[] args) throws Exception {
         String privateKey="12121212";
         String sourceData="2131";
         SM2Sign sign = SM2SignVerify.sign(SM2Util.hexToByte(privateKey), sourceData.getBytes());
-
     }
 }

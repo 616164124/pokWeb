@@ -45,7 +45,7 @@ public class JwtUtil {
             webResponse.setResultObj(body.getSubject());
         } catch (Exception e) {
             webResponse.setResultCode("999999");
-            webResponse.setResultMsg("token错误");
+            webResponse.setResultMsg("token is error!");
         } finally {
             return webResponse;
         }

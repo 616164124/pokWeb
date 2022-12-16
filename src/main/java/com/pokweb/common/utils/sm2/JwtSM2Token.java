@@ -8,7 +8,7 @@ import java.util.Base64;
 /**
  * 用sm2加密
  */
-public class JwtToken {
+public class JwtSM2Token {
 
     //2个秘钥不能改,成对出现
     private static final String publicKey = "047afdc3d660ddd3d0df2c8f9954b0d2bff7a8628c59ac668c394ae1fda55c6b318f23926d24cbee5324b80f4e9bcbc6483cdb4d4fa466c9a885fb2a60917d6dc1";
@@ -64,7 +64,7 @@ public class JwtToken {
         boolean flag = false;
         String[] jwtarr = jwt.split("\\.");
         if (jwtarr == null || jwtarr.length != 3) {
-            throw new Exception("jwt错误");
+            throw new RuntimeException("jwt length is too short!");
         }
 
         String header = jwtarr[0];
@@ -119,10 +119,10 @@ public class JwtToken {
 
                     "}";
             //加密 私钥
-            String sign = JwtToken.generateJwt(tks);
+            String sign = JwtSM2Token.generateJwt(tks);
             System.out.println(sign);
             //解密 公钥
-            String s = JwtToken.validataJwt(sign);
+            String s = JwtSM2Token.validataJwt(sign);
             System.out.println(s);
         }
 
