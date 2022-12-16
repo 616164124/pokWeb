@@ -150,4 +150,5 @@ public class WebResponse implements Serializable {
     public void setTime(String time) {
         this.time = time;
     }
+
 }
